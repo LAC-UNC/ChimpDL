@@ -5,8 +5,16 @@ import java.util.concurrent.Callable;
 
 public class Activity implements Callable<Void> {
 
+	public Activity(Object instance, Method method) {
+		super();
+		this.instance = instance;
+		this.method = method;
+	}
+
+
 	private Object instance;
 	private Method method;
+	
 	
 	@Override
 	public Void call() throws Exception {

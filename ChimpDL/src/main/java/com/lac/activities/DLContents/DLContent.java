@@ -1,26 +1,25 @@
 package com.lac.activities.DLContents;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DLContent {
-	ArrayList<ResourcesContent> resources = new ArrayList<ResourcesContent>();
-	ArrayList<TasksContent> tasks= new ArrayList<TasksContent>();
+	private List<ResourcesContent> resources;
+	private ArrayList<TasksContent> tasks;
 	
-	public ArrayList<ResourcesContent> getResourcesContentList() {
+	public List<ResourcesContent> getResources() {
 		return resources;
 	}
-	public void setResourcesContentList(
-			ArrayList<ResourcesContent> resourcesContentList) {
-		this.resources = resourcesContentList;
+
+	public void setResources(List<ResourcesContent> resources) {
+		this.resources = resources;
 	}
-	public ArrayList<TasksContent> getMappingContentList() {
+
+	public ArrayList<TasksContent> getTasks() {
 		return tasks;
 	}
-	public void setMappingContentList(ArrayList<TasksContent> mappingContentList) {
-		this.tasks = mappingContentList;
-	}
-	
-	
 
-	
+	public void setTasks(ArrayList<TasksContent> tasks) {
+		this.tasks = tasks;
+	}
 }

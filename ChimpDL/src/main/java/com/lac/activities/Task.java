@@ -1,5 +1,7 @@
 package com.lac.activities;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.lac.petrinet.components.Dummy;
@@ -10,8 +12,9 @@ public class Task extends Dummy{
 
 	private List<Activity> activities;
 	
-	protected Task(PetriNet pn, String tName) {
-		super(pn, tName);
+	public Task(PetriNet pn, String outputTransitionName) {
+		super(pn, outputTransitionName);
+		activities = new ArrayList<Activity>();
 	}
 
 	@Override
@@ -24,6 +27,14 @@ public class Task extends Dummy{
 			}
 		}
 		
+	}
+	
+	public void addActivity(Activity act){
+		activities.add(act);
+	}
+	
+	public void addAllActivities(Collection<? extends Activity> activityList){
+		activities.addAll(activityList);
 	}
 
 }

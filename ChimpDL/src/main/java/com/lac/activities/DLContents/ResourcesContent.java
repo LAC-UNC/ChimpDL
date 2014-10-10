@@ -3,7 +3,7 @@ package com.lac.activities.DLContents;
 public class ResourcesContent {
 
 	private String implementationName;
-	private String ClassName;
+	private String className;
 	
 	public String getImplementationName() {
 		return implementationName;
@@ -12,10 +12,10 @@ public class ResourcesContent {
 		this.implementationName = implementationName;
 	}
 	public String getClassName() {
-		return ClassName;
+		return className;
 	}
 	public void setClassName(String className) {
-		ClassName = className;
+		this.className = className;
 	}
 	
 }

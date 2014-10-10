@@ -1,0 +1,17 @@
+{ "resources" :  [ 
+				{ "implementationName" : "implName0", "className" : "com.lac.interpreter.mock.Class0" }, 
+				{ "implementationName" : "implName1", "className" : "com.lac.interpreter.mock.Class1"} 
+			  ] ,
+	"tasks" : [
+				{"inputTransitionName" : ["T1"] , 
+				 "outputTransitionName" : "T2", 
+				 "activities" : [{"obj" : "implName0" , "method" :  "method0" } , {"obj" : "implName5" , "method" : "method1"} ],
+				 "name" : "tarea0"
+				 },
+				{"inputTransitionName" : ["T3"] ,
+				 "outputTransitionName" : "T4",
+				 "activities" :  [{"obj" : "implName1" , "method" :  "method0" } ,{"obj" : "implName7" , "method" : "method1"} ],
+				 "name" : "tarea1"
+				 }
+			]
+}

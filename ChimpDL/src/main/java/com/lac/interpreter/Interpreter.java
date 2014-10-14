@@ -35,6 +35,25 @@ public class Interpreter {
 		
 	}
 	
+	public void readPnmlFile(String pnmlPath) throws PetriNetException{
+		// Get the pnml configuration 
+		configReader = new PNMLConfigurationReader();
+		petriNet = configReader.loadConfiguration(pnmlPath);
+		
+		// create the resources and tasks that will be used
+		parser = new Parser(petriNet);
+		try {
+			 parser.parseAndCreateObjects(FileUtils.readFileToString(new File(getJarpath() + "./configuration.conf")));
+		} catch (IOException | URISyntaxException e) {
+			throw new PetriNetException(e.getMessage(),e);
+		}
+	}
+	
+	public void startListening(){
+		//start  the application
+		petriNet.startListening();
+	}
+	
 	private String getJarpath() throws URISyntaxException {
 		final String uri;
 		uri = ParserTest.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();

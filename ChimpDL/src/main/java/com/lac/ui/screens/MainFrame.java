@@ -79,9 +79,9 @@ public class MainFrame extends JFrame {
 		if(pnmlPanel.isVisible()){
 			String path = pnmlPanel.getPath();
 			try {
-				Interpreter interpreter = new Interpreter();
-				interpreter.readPnmlFile(path);
-				System.out.println("asdasd");
+				// TODO:add interpreter logic
+//				Interpreter interpreter = new Interpreter();
+//				interpreter.readPnmlFile(path);
 				pnmlPanel.setVisible(false);
 				this.remove(pnmlPanel);
 				taskAssocPanel.setVisible(true);

@@ -20,7 +20,7 @@ public class Interpreter {
 	public void start(ChimpDL chimpReader, String pnmlPath) throws PetriNetException{
 		// Get the pnml configuration 
 		configReader = new PNMLConfigurationReader();
-		petriNet = configReader.loadConfiguration(pnmlPath);
+		petriNet = configReader.loadConfiguration(pnmlPath); 
 		
 		// create the resources and tasks that will be used
 		parser = new Parser(petriNet);
@@ -40,23 +40,24 @@ public class Interpreter {
 		configReader = new PNMLConfigurationReader();
 		petriNet = configReader.loadConfiguration(pnmlPath);
 		
+	}
+	
+	public void startListening(String ConfigFileLocation) throws PetriNetException{
 		// create the resources and tasks that will be used
 		parser = new Parser(petriNet);
 		try {
-			 parser.parseAndCreateObjects(FileUtils.readFileToString(new File(getJarpath() + "./configuration.conf")));
-		} catch (IOException | URISyntaxException e) {
+			 parser.parseAndCreateObjects(FileUtils.readFileToString(new File(ConfigFileLocation + "/configuration.conf")));
+		} catch (IOException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}
-	}
-	
-	public void startListening(){
+		
 		//start  the application
 		petriNet.startListening();
 	}
 	
 	private String getJarpath() throws URISyntaxException {
 		final String uri;
-		uri = ParserTest.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+		uri = Interpreter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 		return uri;
 	}
 	

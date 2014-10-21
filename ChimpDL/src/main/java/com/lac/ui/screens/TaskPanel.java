@@ -1,57 +1,78 @@
 package com.lac.ui.screens;
 
-import javax.swing.JPanel;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JLabel;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import com.lac.userentry.ResourceInstances;
 
 public class TaskPanel extends JPanel {
-
+	private JPanel taskPanel;
+	private JPanel Content;
+	private ActivityFrame actFrame;
+	
 	/**
 	 * Create the panel.
 	 */
 	public TaskPanel() {
-		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		Content = new JPanel();
+		add(Content);
+		Content.setLayout(new BoxLayout(Content, BoxLayout.Y_AXIS));
+		
+		taskPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) taskPanel.getLayout();
+		Content.add(taskPanel);
+		taskPanel.setSize(600, 80);
+		taskPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
 		JLabel transitionInputLabel = new JLabel("Transition Input:");
-		add(transitionInputLabel);
+		taskPanel.add(transitionInputLabel);
 		
 		JComboBox transitionInputComboBox = new JComboBox();
-		add(transitionInputComboBox);
+		taskPanel.add(transitionInputComboBox);
 		
 		JLabel lblTransitionOutput = new JLabel("Transition output:");
-		add(lblTransitionOutput);
+		taskPanel.add(lblTransitionOutput);
 		
 		JComboBox transitionOutputComboBox = new JComboBox();
-		add(transitionOutputComboBox);
+		taskPanel.add(transitionOutputComboBox);
 		
 		JLabel lblTasks = new JLabel("Tasks:");
-		add(lblTasks);
+		taskPanel.add(lblTasks);
 		
-		JButton NewActivityButton = new JButton("new activity");
+		JButton NewActivityButton = new JButton("edit Activities");
+		taskPanel.add(NewActivityButton);
 		NewActivityButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addNewActivityPanel();
+				if(actFrame == null){
+					actFrame = new ActivityFrame();
+					actFrame.setVisible(true);
+				}
+				
+				editActivities();
 			}
 		});
-		add(NewActivityButton);
-
 	}
 	
-	private void addNewActivityPanel(){
-		ActivityPanel actPanel = new ActivityPanel();
-		actPanel.setVisible(true);
-		add(actPanel);
-		revalidate();
-		repaint();
+	private void editActivities(){
+		actFrame.setVisible(true);
+	}
+
+	public void setResourceInstances(List<ResourceInstances> instanceNames) {
+		if(actFrame == null){
+			actFrame = new ActivityFrame();
+		}
+		actFrame.setResourceInstances(instanceNames);
 	}
 
 }

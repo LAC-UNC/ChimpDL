@@ -17,8 +17,6 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import com.lac.interpreter.Interpreter;
-import com.lac.petrinet.exceptions.PetriNetException;
 
 public class PnmlSelectionPanel extends JPanel {
 	private JTextField pathTextField;

@@ -18,6 +18,7 @@ public class MainFrame extends JFrame {
 	private JPanel contentPane;
 	PnmlSelectionPanel pnmlPanel = new PnmlSelectionPanel();
 	TaskAssociationPanel taskAssocPanel = new TaskAssociationPanel();
+	ResourcesManagementPanel resourcePanel = new ResourcesManagementPanel();
 
 	/**
 	 * Launch the application.
@@ -40,7 +41,7 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 753, 372);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -52,26 +53,33 @@ public class MainFrame extends JFrame {
 		JPanel buttonPanel = new JPanel();
 		contentPane.add(buttonPanel, BorderLayout.SOUTH);
 		
-		JButton btnAccept = new JButton("Accept");
+		JButton btnAtras = new JButton("Back");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				backAction();
+			}
+		});
+		
+		JButton btnAccept = new JButton("Next");
 		btnAccept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				acceptAction();
 			}
 		});
 		buttonPanel.add(btnAccept);
-		
-		JButton btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cancelAction();
-			}
-		});
-		buttonPanel.add(btnCancel);
+		buttonPanel.add(btnAtras);
 		
 	}
 	
-	protected void cancelAction() {
-		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));		
+	protected void backAction() {
+		if(pnmlPanel.isVisible()){
+		}		
+		else if(resourcePanel.isVisible()){
+			changeContentPanel(resourcePanel, pnmlPanel);
+		}
+		else if(taskAssocPanel.isVisible()){
+			changeContentPanel(taskAssocPanel, resourcePanel);
+		}
 	}
 
 	protected void acceptAction() {
@@ -79,39 +87,60 @@ public class MainFrame extends JFrame {
 		if(pnmlPanel.isVisible()){
 			String path = pnmlPanel.getPath();
 			try {
-				// TODO:add interpreter logic
-//				Interpreter interpreter = new Interpreter();
-//				interpreter.readPnmlFile(path);
-				pnmlPanel.setVisible(false);
-				this.remove(pnmlPanel);
-				taskAssocPanel.setVisible(true);
-				contentPane.add(taskAssocPanel, BorderLayout.CENTER);
-				contentPane.revalidate();
-				contentPane.repaint();
-				this.revalidate();
-				this.repaint();
+				Interpreter interpreter = new Interpreter();
+				interpreter.readPnmlFile(path);
+				changeContentPanel(pnmlPanel, resourcePanel);
 			} catch (Exception e) {
-				String message = e.getMessage();
-				while((message == null || message.equals("")) && e.getCause() != null){
-					message = e.getCause().getMessage();
-				}
-				if(message == null || message.equals("")){
-					message = "Unexpected error.";
-				}
-				new ErrorDialog(message);
+				showError(e);
 			}
 		}		
 		
-		else if(taskAssocPanel.isVisible()){
-			taskAssocPanel.setVisible(false);
-			this.remove(taskAssocPanel);
-			pnmlPanel.setVisible(true);
-			contentPane.add(pnmlPanel, BorderLayout.CENTER);
-			contentPane.revalidate();
-			contentPane.repaint();
+		else if(resourcePanel.isVisible()){
+			taskAssocPanel.setInstanceName(resourcePanel.getResourceInstances());
+			changeContentPanel(resourcePanel, taskAssocPanel);
+			
 		}
 		
-		
+		else if(taskAssocPanel.isVisible()){
+			this.setVisible(false);
+		}
 	}
+	
+	private void changeContentPanel(JPanel source, JPanel target){
+		source.setVisible(false);
+		this.remove(source);
+		target.setVisible(true);
+		contentPane.add(target, BorderLayout.CENTER);
+		contentPane.revalidate();
+		contentPane.repaint();
+		this.revalidate();
+		this.repaint();
+	}
+	
+	private void showError(Exception e){
+		String message = e.getMessage();
+		while((message == null || message.equals("")) && e.getCause() != null){
+			message = e.getCause().getMessage();
+		}
+		if(message == null || message.equals("")){
+			message = "Unexpected error.";
+		}
+		new ErrorDialog(message);
+	}
+	
+//	private String getJarpath() throws URISyntaxException {
+//		String uri;
+//		uri = MainFrame.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+//		if(uri.endsWith("/")){
+//			uri = uri.substring(0,uri.length()-1);
+//		}
+//		if(uri.contains(".jar")){
+//			uri = uri.substring(0,uri.lastIndexOf("/"));
+//		}
+//		while(uri.contains(".jar")){
+//			uri = uri.substring(0,  uri.lastIndexOf("/"));
+//		}
+//		return uri;
+//	}
 
 }

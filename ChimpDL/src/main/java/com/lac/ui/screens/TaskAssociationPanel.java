@@ -1,26 +1,28 @@
 package com.lac.ui.screens;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import java.awt.BorderLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Color;
-
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.FlowLayout;
+import com.lac.userentry.ResourceInstances;
 
 public class TaskAssociationPanel extends JPanel {
 
-	int lastColumn;
-	int lastRow;
 	JPanel bodyPanel;
+	
+	private List<ResourceInstances> instanceNames;
+	private List<TaskPanel> taskPanels = new ArrayList<TaskPanel>();
 	
 	/**
 	 * Create the panel.
@@ -35,12 +37,17 @@ public class TaskAssociationPanel extends JPanel {
 		taskAssociationLabel.setForeground(Color.BLUE);
 		taskAssociationLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		titlePanel.add(taskAssociationLabel);
+		setAutoscrolls(true);
 		
 		bodyPanel = new JPanel();
 		add(bodyPanel, BorderLayout.CENTER);
+		bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 		
 		JButton btnNewTask = new JButton("new Task");
+		btnNewTask.setAlignmentY(Component.TOP_ALIGNMENT);
+		btnNewTask.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bodyPanel.add(btnNewTask);
+		bodyPanel.setAutoscrolls(true);
 		btnNewTask.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addNewTask();
@@ -49,13 +56,25 @@ public class TaskAssociationPanel extends JPanel {
 	}
 	
 	private void addNewTask(){
-		TaskPanel newtask = new TaskPanel();
-		newtask.setVisible(true);
-		bodyPanel.add(newtask);
+		TaskPanel newTask = new TaskPanel();
+		taskPanels.add(newTask);
+		newTask.setResourceInstances(instanceNames);
+		newTask.setMaximumSize(new Dimension(500,40 ));
+		newTask.setAlignmentY(Component.TOP_ALIGNMENT);
+		newTask.setAlignmentX(Component.CENTER_ALIGNMENT);
+		bodyPanel.add(newTask);
 		bodyPanel.revalidate();
 		bodyPanel.repaint();
 		revalidate();
 		repaint();
+	}
+	
+	public void setInstanceName(List<ResourceInstances> instanceNames){
+		this.instanceNames = instanceNames;
+		for(TaskPanel panel : taskPanels){
+			panel.setResourceInstances(instanceNames);
+		}
+		
 	}
 	
 }

@@ -15,8 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.lac.activities.DLContents.TasksContent;
 import com.lac.userentry.ResourceInstances;
 
+//TODO: support multiple input transitions for a given task.
 public class TaskAssociationPanel extends JPanel {
 
 	JPanel bodyPanel;
@@ -48,6 +50,17 @@ public class TaskAssociationPanel extends JPanel {
 		btnNewTask.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bodyPanel.add(btnNewTask);
 		bodyPanel.setAutoscrolls(true);
+		
+		JPanel buttonPanel = new JPanel();
+		add(buttonPanel, BorderLayout.SOUTH);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveAction();
+			}
+		});
+		buttonPanel.add(btnSave);
 		btnNewTask.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addNewTask();
@@ -74,7 +87,21 @@ public class TaskAssociationPanel extends JPanel {
 		for(TaskPanel panel : taskPanels){
 			panel.setResourceInstances(instanceNames);
 		}
-		
+	}
+	
+	@Deprecated
+	public List<TasksContent> getTasksContent(){
+		List<TasksContent> taskList = new ArrayList<TasksContent>();
+		for(TaskPanel panel : taskPanels){
+			taskList.add(panel.getTask());
+		}
+		return taskList;
+	}
+	
+	public void saveAction(){
+		for(TaskPanel panel : taskPanels){
+			panel.save();
+		}
 	}
 	
 }

@@ -35,10 +35,11 @@ public class Interpreter {
 		
 	}
 	
-	public void readPnmlFile(String pnmlPath) throws PetriNetException{
+	public PetriNet readPnmlFile(String pnmlPath) throws PetriNetException{
 		// Get the pnml configuration 
 		configReader = new PNMLConfigurationReader();
 		petriNet = configReader.loadConfiguration(pnmlPath);
+		return petriNet;
 		
 	}
 	

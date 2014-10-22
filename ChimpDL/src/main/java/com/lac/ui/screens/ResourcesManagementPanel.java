@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.lac.activities.DLContents.ResourcesContent;
 import com.lac.userentry.ResourceInstances;
 
 public class ResourcesManagementPanel extends JPanel {

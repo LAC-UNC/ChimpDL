@@ -8,7 +8,6 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.lac.activities.DLContents.ResourcesContent;
 import com.lac.annotations.ResourcesFinder;
 import com.lac.userentry.ResourceInstances;
 

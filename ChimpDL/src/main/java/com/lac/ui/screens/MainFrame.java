@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,13 +11,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.lac.interpreter.Interpreter;
+import com.lac.petrinet.core.PetriNet;
+import com.lac.userentry.ConfigurationEntryHolder;
+import com.lac.userentry.ResourceInstances;
 
 public class MainFrame extends JFrame {
 
-	private JPanel contentPane;
-	PnmlSelectionPanel pnmlPanel = new PnmlSelectionPanel();
-	TaskAssociationPanel taskAssocPanel = new TaskAssociationPanel();
-	ResourcesManagementPanel resourcePanel = new ResourcesManagementPanel();
+	protected JPanel contentPane;
+	protected PnmlSelectionPanel pnmlPanel = new PnmlSelectionPanel();
+	protected TaskAssociationPanel taskAssocPanel = new TaskAssociationPanel();
+	protected ResourcesManagementPanel resourcePanel = new ResourcesManagementPanel();
+	protected Interpreter interpreter;
+	protected SaveConfigPanel saveConfigPanel = new SaveConfigPanel();
+	
 
 	/**
 	 * Launch the application.
@@ -84,25 +89,27 @@ public class MainFrame extends JFrame {
 
 	protected void acceptAction() {
 		
+		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
 		if(pnmlPanel.isVisible()){
 			String path = pnmlPanel.getPath();
 			try {
-				Interpreter interpreter = new Interpreter();
-				interpreter.readPnmlFile(path);
+				interpreter = new Interpreter();
+				PetriNet petriNet = interpreter.readPnmlFile(path);
+				config.setPetriNet(petriNet);
 				changeContentPanel(pnmlPanel, resourcePanel);
 			} catch (Exception e) {
 				showError(e);
 			}
 		}		
-		
 		else if(resourcePanel.isVisible()){
+			for(ResourceInstances resource : resourcePanel.getResourceInstances()){
+				config.addUserEntryResource(resource.getInstanceName(),resource.getClazz() );
+			}
 			taskAssocPanel.setInstanceName(resourcePanel.getResourceInstances());
 			changeContentPanel(resourcePanel, taskAssocPanel);
-			
 		}
-		
 		else if(taskAssocPanel.isVisible()){
-			this.setVisible(false);
+			changeContentPanel(taskAssocPanel, saveConfigPanel);
 		}
 	}
 	
@@ -117,7 +124,7 @@ public class MainFrame extends JFrame {
 		this.repaint();
 	}
 	
-	private void showError(Exception e){
+	public void showError(Exception e){
 		String message = e.getMessage();
 		while((message == null || message.equals("")) && e.getCause() != null){
 			message = e.getCause().getMessage();
@@ -127,20 +134,9 @@ public class MainFrame extends JFrame {
 		}
 		new ErrorDialog(message);
 	}
-	
-//	private String getJarpath() throws URISyntaxException {
-//		String uri;
-//		uri = MainFrame.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-//		if(uri.endsWith("/")){
-//			uri = uri.substring(0,uri.length()-1);
-//		}
-//		if(uri.contains(".jar")){
-//			uri = uri.substring(0,uri.lastIndexOf("/"));
-//		}
-//		while(uri.contains(".jar")){
-//			uri = uri.substring(0,  uri.lastIndexOf("/"));
-//		}
-//		return uri;
-//	}
 
+	public Interpreter getInterpreter() {
+		return interpreter;
+	}
+	
 }

@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
+import com.lac.activities.DLContents.ActivityContent;
 import com.lac.userentry.ResourceInstances;
 
 public class ActivityPanel extends JPanel {
@@ -41,6 +42,7 @@ public class ActivityPanel extends JPanel {
 
 	}
 	
+	//TODO: arreglar el getDeclaredMethod xq lo entrega con las variables no solo el nombre y nosotros necesitamos solo el nombre. 
 	public void addResources(List<ResourceInstances> instanceNames){
 		for(ResourceInstances instanceInfo : instanceNames){
 			if(instanceNamesSet.add(instanceInfo.getInstanceName()))
@@ -51,6 +53,15 @@ public class ActivityPanel extends JPanel {
 		}
 		resourcesComboBox.validate();
 		resourcesComboBox.repaint();
+	}
+	
+	public ActivityContent getActivity(){
+		ActivityContent content = new ActivityContent();
+		content.setMethod(methodComboBox.getSelectedItem().toString());
+		content.setObj(resourcesComboBox.getSelectedItem().toString());
+		return content;
+		
+		
 	}
 	
 }

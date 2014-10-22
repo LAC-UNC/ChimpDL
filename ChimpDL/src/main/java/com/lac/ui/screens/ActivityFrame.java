@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.lac.activities.DLContents.ActivityContent;
 import com.lac.userentry.ResourceInstances;
 
 public class ActivityFrame extends JFrame {
@@ -85,6 +86,15 @@ public class ActivityFrame extends JFrame {
 			activitiy.addResources(instanceNames);		
 			
 		}
+	}
+	
+	public List<ActivityContent> getActivities(){
+		List<ActivityContent> activityList = new ArrayList<ActivityContent>();
+		for(ActivityPanel panel : activities){
+			activityList.add(panel.getActivity());
+		}
+		
+		return activityList;
 	}
 
 }

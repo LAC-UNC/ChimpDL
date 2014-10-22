@@ -13,7 +13,7 @@ import com.lac.userentry.ResourceInstances;
 
 public class ResourceInstancePanel extends JPanel {
 	private JTextField instanceNameText;
-	private JComboBox<Set<Class<?>>> resourceComboBox;
+	private JComboBox<Class<?>> resourceComboBox;
 
 	/**
 	 * Create the panel.
@@ -25,8 +25,9 @@ public class ResourceInstancePanel extends JPanel {
 		add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
-		resourceComboBox = new JComboBox<Set<Class<?>>>();
-		resourceComboBox.addItem(ResourcesFinder.getResources());
+		resourceComboBox = new JComboBox<Class<?>>();
+		for(Class<?> clazz : ResourcesFinder.getResources())
+			resourceComboBox.addItem(clazz);
 		panel.add(resourceComboBox);
 		
 		instanceNameText = new JTextField();
@@ -36,7 +37,7 @@ public class ResourceInstancePanel extends JPanel {
 	} 
 	
 	public ResourceInstances getInstanceInfo(){
-		ResourceInstances information = new ResourceInstances(instanceNameText.getText(),resourceComboBox.getSelectedItem().getClass());
+		ResourceInstances information = new ResourceInstances(instanceNameText.getText(),(Class<?>) resourceComboBox.getSelectedItem());
 		return information;
 	}
 	

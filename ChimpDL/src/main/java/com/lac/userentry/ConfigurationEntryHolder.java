@@ -103,5 +103,9 @@ public class ConfigurationEntryHolder extends Observable{
 	public DLContent getUserSelection() {
 		return userSelection;
 	}
+	
+	public void emptyTask(){
+		userSelection.emptyTask();
+	}
 
 }

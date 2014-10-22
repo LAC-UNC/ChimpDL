@@ -39,4 +39,8 @@ public class DLContent {
 		}
 		tasks.add(task);
 	}
+	
+	public void emptyTask(){
+		tasks = new ArrayList<TasksContent>();
+	}
 }

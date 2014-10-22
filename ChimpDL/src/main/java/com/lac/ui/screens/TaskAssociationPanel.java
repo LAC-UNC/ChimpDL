@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.lac.activities.DLContents.TasksContent;
+import com.lac.userentry.ConfigurationEntryHolder;
 import com.lac.userentry.ResourceInstances;
 
 //TODO: support multiple input transitions for a given task.
@@ -99,6 +100,8 @@ public class TaskAssociationPanel extends JPanel {
 	}
 	
 	public void saveAction(){
+		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
+		config.emptyTask();
 		for(TaskPanel panel : taskPanels){
 			panel.save();
 		}

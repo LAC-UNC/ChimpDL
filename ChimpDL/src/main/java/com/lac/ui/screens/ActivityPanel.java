@@ -2,9 +2,13 @@ package com.lac.ui.screens;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.BoxLayout;
@@ -18,8 +22,9 @@ import com.lac.userentry.ResourceInstances;
 public class ActivityPanel extends JPanel {
 
 	JComboBox<String> resourcesComboBox;
-	JComboBox<Method> methodComboBox;	
+	JComboBox<String> methodComboBox;	
 	Set<String> instanceNamesSet = new HashSet<String>();
+	Map<String, Class<?>> instanceMap = new HashMap<String, Class<?>>();
 	
 	/**
 	 * Create the panel.
@@ -29,11 +34,16 @@ public class ActivityPanel extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		resourcesComboBox = new JComboBox<String>();
-		resourcesComboBox.setMaximumRowCount(3);
+		resourcesComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changeMethodComboBox(e);
+			}
+		});
+		resourcesComboBox.setMaximumRowCount(20);
 		add(resourcesComboBox);
 		
-		methodComboBox = new JComboBox<Method>();
-		methodComboBox.setMaximumRowCount(3);
+		methodComboBox = new JComboBox<String>();
+		methodComboBox.setMaximumRowCount(20);
 		add(methodComboBox);
 		this.setMaximumSize(new Dimension(420,25));
 		this.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -45,10 +55,8 @@ public class ActivityPanel extends JPanel {
 	//TODO: arreglar el getDeclaredMethod xq lo entrega con las variables no solo el nombre y nosotros necesitamos solo el nombre. 
 	public void addResources(List<ResourceInstances> instanceNames){
 		for(ResourceInstances instanceInfo : instanceNames){
-			if(instanceNamesSet.add(instanceInfo.getInstanceName()))
+			if(instanceMap.put(instanceInfo.getInstanceName(), instanceInfo.getClazz()) == null){
 				resourcesComboBox.addItem(instanceInfo.getInstanceName());
-			for(Method m : instanceInfo.getClazz().getDeclaredMethods()){
-				methodComboBox.addItem(m);
 			}
 		}
 		resourcesComboBox.validate();
@@ -60,7 +68,14 @@ public class ActivityPanel extends JPanel {
 		content.setMethod(methodComboBox.getSelectedItem().toString());
 		content.setObj(resourcesComboBox.getSelectedItem().toString());
 		return content;
-		
+	}
+	
+	public void changeMethodComboBox(ActionEvent e){
+		Class<?> clazz = instanceMap.get(((JComboBox) e.getSource()).getSelectedItem());
+		methodComboBox.removeAllItems();			
+		for(Method m : clazz.getDeclaredMethods()){
+			methodComboBox.addItem(m.getName());
+		}
 		
 	}
 	

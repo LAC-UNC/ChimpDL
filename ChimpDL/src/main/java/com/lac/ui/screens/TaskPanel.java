@@ -1,7 +1,6 @@
 package com.lac.ui.screens;
 
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,11 +12,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.lac.activities.DLContents.TasksContent;
+import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.userentry.ConfigurationEntryHolder;
 import com.lac.userentry.ResourceInstances;
-import javax.swing.JTextField;
 
 public class TaskPanel extends JPanel {
 	private JPanel taskPanel;
@@ -31,20 +31,20 @@ public class TaskPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public TaskPanel() {
+		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
 		Content = new JPanel();
 		add(Content);
 		Content.setLayout(new BoxLayout(Content, BoxLayout.Y_AXIS));
 		
 		taskPanel = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) taskPanel.getLayout();
+		taskPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		Content.add(taskPanel);
 		taskPanel.setSize(600, 80);
-		taskPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		
-		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
+		taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.X_AXIS));
 		
+		/* Transition Input */
 		JLabel transitionInputLabel = new JLabel("Transition Input:");
 		taskPanel.add(transitionInputLabel);
 		
@@ -54,6 +54,7 @@ public class TaskPanel extends JPanel {
 		}
 		taskPanel.add(transitionInputComboBox);
 		
+		/* Transition Output */
 		JLabel lblTransitionOutput = new JLabel("Transition output:");
 		taskPanel.add(lblTransitionOutput);
 		
@@ -63,6 +64,7 @@ public class TaskPanel extends JPanel {
 		}
 		taskPanel.add(transitionOutputComboBox);
 		
+		/* Name */
 		JLabel lblName = new JLabel("Name:");
 		taskPanel.add(lblName);
 		
@@ -70,6 +72,7 @@ public class TaskPanel extends JPanel {
 		taskPanel.add(taskNameTextField);
 		taskNameTextField.setColumns(12);
 		
+		/* New Activity Button */
 		JButton NewActivityButton = new JButton("edit Activities");
 		taskPanel.add(NewActivityButton);
 		NewActivityButton.addActionListener(new ActionListener() {
@@ -82,6 +85,7 @@ public class TaskPanel extends JPanel {
 				editActivities();
 			}
 		});
+		
 	}
 	
 	private void editActivities(){
@@ -108,8 +112,12 @@ public class TaskPanel extends JPanel {
 	
 	public void save(){
 		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
-		config.addtask(new ArrayList(Arrays.asList(transitionInputComboBox.getSelectedObjects())), 
-				transitionOutputComboBox.getSelectedItem().toString(), actFrame.getActivities(), taskNameTextField.getText());
+		try {
+			config.addtask(new ArrayList(Arrays.asList(transitionInputComboBox.getSelectedObjects())), 
+					transitionOutputComboBox.getSelectedItem().toString(), actFrame.getActivities(), taskNameTextField.getText());
+		} catch (PetriNetException e) {
+			MainFrame.showError(e);
+		}
 	}
 
 }

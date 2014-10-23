@@ -45,14 +45,12 @@ public class ActivityPanel extends JPanel {
 		methodComboBox = new JComboBox<String>();
 		methodComboBox.setMaximumRowCount(20);
 		add(methodComboBox);
-		this.setMaximumSize(new Dimension(420,25));
+		this.setMaximumSize(new Dimension(999,25));
 		this.setAlignmentY(Component.TOP_ALIGNMENT);
 		
-//		this.setPreferredSize(new Dimension(139, 16));
 
 	}
 	
-	//TODO: arreglar el getDeclaredMethod xq lo entrega con las variables no solo el nombre y nosotros necesitamos solo el nombre. 
 	public void addResources(List<ResourceInstances> instanceNames){
 		for(ResourceInstances instanceInfo : instanceNames){
 			if(instanceMap.put(instanceInfo.getInstanceName(), instanceInfo.getClazz()) == null){
@@ -71,12 +69,17 @@ public class ActivityPanel extends JPanel {
 	}
 	
 	public void changeMethodComboBox(ActionEvent e){
-		Class<?> clazz = instanceMap.get(((JComboBox) e.getSource()).getSelectedItem());
+		@SuppressWarnings("unchecked")
+		Class<?> clazz = instanceMap.get(((JComboBox<String>) e.getSource()).getSelectedItem());
 		methodComboBox.removeAllItems();			
 		for(Method m : clazz.getDeclaredMethods()){
 			methodComboBox.addItem(m.getName());
 		}
 		
+	}
+	
+	public int getComboBoxesWidth(){
+		return methodComboBox.getWidth()+resourcesComboBox.getWidth();
 	}
 	
 }

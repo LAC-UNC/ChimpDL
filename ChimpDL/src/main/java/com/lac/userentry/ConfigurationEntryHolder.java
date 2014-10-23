@@ -1,6 +1,7 @@
 package com.lac.userentry;
 
 import java.lang.reflect.Method;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +12,10 @@ import java.util.Set;
 import com.lac.activities.DLContents.ActivityContent;
 import com.lac.activities.DLContents.DLContent;
 import com.lac.activities.DLContents.TasksContent;
+import com.lac.interpreter.ChimpDL;
+import com.lac.interpreter.ChimpDLImpl;
 import com.lac.petrinet.core.PetriNet;
+import com.lac.petrinet.exceptions.PetriNetException;
 
 //TODO: check concurrency in this class.
 public class ConfigurationEntryHolder extends Observable{
@@ -63,19 +67,32 @@ public class ConfigurationEntryHolder extends Observable{
 //		this.notifyObservers();
 //	}
 	
-	public void addUserEntryResource(String implementationName, Class<?> clazz){
+	public void addUserEntryResource(String implementationName, Class<?> clazz) throws PetriNetException{
 		userSelection.addResource(implementationName,clazz.getCanonicalName());
 		resourceInstancesMap.put(implementationName, clazz);
+		ChimpDLImpl chimpDl = new ChimpDLImpl();
+		try {
+			chimpDl.saveConfiguration(getJarpath(), userSelection);
+		} catch (URISyntaxException e) {
+			throw new PetriNetException(e.getMessage(),e);
+		}
+		
 	}
 	
 	public void addtask( List<String> inputTransitionName,String outputTransitionName, List<ActivityContent> activities, 
-			String name ){
+			String name ) throws PetriNetException{
 		TasksContent task = new TasksContent();
 		task.setActivities(activities);
 		task.setInputTransitionName(inputTransitionName);
 		task.setName(name);
 		task.setOutputTransitionName(outputTransitionName);
 		userSelection.addTask(task);
+		ChimpDLImpl chimpDl = new ChimpDLImpl();
+		try {
+			chimpDl.saveConfiguration(getJarpath(), userSelection);
+		} catch (URISyntaxException e) {
+			throw new PetriNetException(e.getMessage(),e);
+		}
 	}
 	
 	public Set<String> getInformedTransitions(){
@@ -107,5 +124,15 @@ public class ConfigurationEntryHolder extends Observable{
 	public void emptyTask(){
 		userSelection.emptyTask();
 	}
+	
+	private String getJarpath() throws URISyntaxException {
+		String uri;
+		uri = ChimpDLImpl.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+		while(uri.contains(".jar")){
+			uri = uri.substring(0,  uri.lastIndexOf("/"));
+		}
+		return uri;
+	}
+
 
 }

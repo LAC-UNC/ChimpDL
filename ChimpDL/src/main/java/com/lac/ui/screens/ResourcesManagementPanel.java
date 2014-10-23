@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.lac.userentry.ResourceInstances;
+import javax.swing.JScrollPane;
 
 public class ResourcesManagementPanel extends JPanel {
 
@@ -32,16 +33,22 @@ public class ResourcesManagementPanel extends JPanel {
 		titlePanel.add(lblResourcesManagement);
 		
 		contentPanel = new JPanel();
-		add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 		
 		JButton btnAddResourceInstance = new JButton("Add Resource Instance ");
+		btnAddResourceInstance.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAddResourceInstance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addResourceInstancePanel();
 			}
 		});
 		contentPanel.add(btnAddResourceInstance);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBorder(null);
+		add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setViewportView(contentPanel);
 
 	}
 	

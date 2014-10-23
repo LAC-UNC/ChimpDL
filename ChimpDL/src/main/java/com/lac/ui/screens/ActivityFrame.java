@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import com.lac.activities.DLContents.ActivityContent;
@@ -22,7 +23,7 @@ public class ActivityFrame extends JFrame {
 	private JPanel contentPane;
 	private List<ResourceInstances> resourceInstancesNames;
 	private List<ActivityPanel> activities = new ArrayList<ActivityPanel>(); 
-	
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -45,10 +46,10 @@ public class ActivityFrame extends JFrame {
 	 */
 	public ActivityFrame() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 658, 377);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
 		JLabel lblActivitiesList = new JLabel("Activities list");
@@ -65,6 +66,11 @@ public class ActivityFrame extends JFrame {
 		btnAddActivity.setAlignmentY(Component.TOP_ALIGNMENT);
 		btnAddActivity.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(btnAddActivity);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setViewportView(contentPane);
+		scrollPane.setPreferredSize(this.getSize());
+		setContentPane(scrollPane);
 	}
 	
 	private void addNewActivityPanel(){
@@ -72,12 +78,12 @@ public class ActivityFrame extends JFrame {
 		activities.add(actPanel);
 		actPanel.addResources(resourceInstancesNames);
 		actPanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		actPanel.setSize(139, 16);
-		actPanel.setVisible(true);
-		getContentPane().add(actPanel);
-		
+		actPanel.setSize(actPanel.getWidth(), 16);
+		contentPane.add(actPanel);
 		revalidate();
 		repaint();
+		contentPane.revalidate();
+		contentPane.revalidate();
 	}
 
 	public void setResourceInstances(List<ResourceInstances> instanceNames) {

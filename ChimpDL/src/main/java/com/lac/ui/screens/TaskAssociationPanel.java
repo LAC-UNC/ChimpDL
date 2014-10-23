@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import com.lac.activities.DLContents.TasksContent;
 import com.lac.userentry.ConfigurationEntryHolder;
 import com.lac.userentry.ResourceInstances;
+import javax.swing.JScrollPane;
 
 //TODO: support multiple input transitions for a given task.
 public class TaskAssociationPanel extends JPanel {
@@ -43,7 +44,6 @@ public class TaskAssociationPanel extends JPanel {
 		setAutoscrolls(true);
 		
 		bodyPanel = new JPanel();
-		add(bodyPanel, BorderLayout.CENTER);
 		bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 		
 		JButton btnNewTask = new JButton("new Task");
@@ -62,6 +62,14 @@ public class TaskAssociationPanel extends JPanel {
 			}
 		});
 		buttonPanel.add(btnSave);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		add(scrollPane, BorderLayout.CENTER);
+		scrollPane.getViewport().add(bodyPanel);
+		scrollPane.setBorder(null);
+		scrollPane.setViewportBorder(null);
+//		add(bodyPanel, BorderLayout.CENTER);
+		
 		btnNewTask.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addNewTask();
@@ -73,7 +81,7 @@ public class TaskAssociationPanel extends JPanel {
 		TaskPanel newTask = new TaskPanel();
 		taskPanels.add(newTask);
 		newTask.setResourceInstances(instanceNames);
-		newTask.setMaximumSize(new Dimension(500,40 ));
+		newTask.setMaximumSize(new Dimension(999,27 ));
 		newTask.setAlignmentY(Component.TOP_ALIGNMENT);
 		newTask.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bodyPanel.add(newTask);

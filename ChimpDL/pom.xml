@@ -48,6 +48,26 @@
     </plugins>
   </build>
   
+   <scm>
+   <connection>scm:git:https://github.com/LAC-UNC/ChimpDL.git</connection>
+   <url>https://github.com/LAC-UNC/ChimpDL</url>
+   <developerConnection>scm:git:https://github.com/LAC-UNC/ChimpDL.git</developerConnection>
+  <tag>ChimpDL-0.0.1-SNAPSHOT</tag>
+  </scm>
+
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>Internal Releases</name>
+			<url>http://nexusdiy-projintegration.rhcloud.com/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Internal Releases</name>
+			<url>http://nexusdiy-projintegration.rhcloud.com/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+  
 	<dependencies>
 	
 	<dependency>

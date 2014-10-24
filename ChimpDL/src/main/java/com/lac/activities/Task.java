@@ -13,7 +13,7 @@ public class Task extends Dummy{
 	private List<Activity> activities;
 	
 	public Task(PetriNet pn, String outputTransitionName) {
-		super(pn, outputTransitionName);
+		super(outputTransitionName);
 		activities = new ArrayList<Activity>();
 	}
 

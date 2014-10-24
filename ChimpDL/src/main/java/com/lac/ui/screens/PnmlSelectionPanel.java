@@ -13,9 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
 public class PnmlSelectionPanel extends JPanel {
@@ -36,12 +36,12 @@ public class PnmlSelectionPanel extends JPanel {
 		JPanel bodyPanel = new JPanel();
 		add(bodyPanel, BorderLayout.CENTER);
 		bodyPanel.setLayout(new FormLayout(new ColumnSpec[] {
-				FormFactory.UNRELATED_GAP_COLSPEC,
+				FormSpecs.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("40dlu"),
 				ColumnSpec.decode("152px:grow"),
 				ColumnSpec.decode("86px"),},
 			new RowSpec[] {
-				FormFactory.LINE_GAP_ROWSPEC,
+				FormSpecs.LINE_GAP_ROWSPEC,
 				RowSpec.decode("20px"),
 				RowSpec.decode("29px"),
 				RowSpec.decode("25px"),}));

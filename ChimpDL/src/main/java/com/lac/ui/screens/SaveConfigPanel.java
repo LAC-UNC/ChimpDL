@@ -55,6 +55,9 @@ public class SaveConfigPanel extends JPanel {
 		while(uri.contains(".jar")){
 			uri = uri.substring(0,  uri.lastIndexOf("/"));
 		}
+		if(! uri.endsWith("/") || ! uri.endsWith("\\")){
+			uri = uri+"/";
+		}
 		return uri;
 	}
 

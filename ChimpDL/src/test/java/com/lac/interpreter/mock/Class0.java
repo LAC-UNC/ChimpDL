@@ -1,5 +1,8 @@
 package com.lac.interpreter.mock;
 
+import com.lac.annotations.Resource;
+
+@Resource
 public class Class0 {
 	private boolean method0Executed = false;
 	private boolean method1Executed = false;

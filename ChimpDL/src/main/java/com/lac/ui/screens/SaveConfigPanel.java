@@ -42,7 +42,7 @@ public class SaveConfigPanel extends JPanel {
 			interpreter.startListening(path);
 		} catch (PetriNetException | URISyntaxException e) {
 			e.printStackTrace();
-			((MainFrame) getTopLevelAncestor()).showError(e);
+			new ErrorDialog(e.getMessage());
 			return;
 		}
 		

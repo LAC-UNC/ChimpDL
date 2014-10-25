@@ -12,7 +12,6 @@ import java.util.Set;
 import com.lac.activities.DLContents.ActivityContent;
 import com.lac.activities.DLContents.DLContent;
 import com.lac.activities.DLContents.TasksContent;
-import com.lac.interpreter.ChimpDL;
 import com.lac.interpreter.ChimpDLImpl;
 import com.lac.petrinet.core.PetriNet;
 import com.lac.petrinet.exceptions.PetriNetException;

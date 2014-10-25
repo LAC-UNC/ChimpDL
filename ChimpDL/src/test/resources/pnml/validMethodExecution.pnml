@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+ <net id="n-51C-DC214-0" type ="http://www.laas.fr/tina/tpn">
+  <name>
+   <text>validMethodExecution</text>
+  </name>
+ <page id="g-51C-DC244-1">
+  <place id="p-51C-DC24F-2">
+  <name>
+   <text>p0</text>
+    <graphics>
+     <offset x="0" y="-10" />
+    </graphics>
+  </name>
+   <graphics>
+    <position x="30" y="140"/>
+   </graphics>
+  </place>
+  <place id="p-51C-DC29C-3">
+  <name>
+   <text>p1</text>
+    <graphics>
+     <offset x="0" y="-10" />
+    </graphics>
+  </name>
+   <graphics>
+    <position x="265" y="120"/>
+   </graphics>
+  </place>
+  <transition id="t-51C-DC2BC-4">
+  <name>
+   <text>t1</text>
+    <graphics>
+     <offset x="0" y="0" />
+    </graphics>
+  </name>
+   <label>
+    <text>&lt;A,I&gt;</text>
+    <graphics>
+     <offset x="10" y="-10" />
+    </graphics>
+   </label>
+   <graphics>
+    <position x="35" y="55"/>
+   </graphics>
+  </transition>
+  <transition id="t-51C-DC2E0-5">
+  <name>
+   <text>t2</text>
+    <graphics>
+     <offset x="0" y="0" />
+    </graphics>
+  </name>
+   <label>
+    <text>&lt;D,N&gt;</text>
+    <graphics>
+     <offset x="10" y="-10" />
+    </graphics>
+   </label>
+   <graphics>
+    <position x="40" y="225"/>
+   </graphics>
+  </transition>
+  <transition id="t-51C-DC2FF-6">
+  <name>
+   <text>t3</text>
+    <graphics>
+     <offset x="0" y="0" />
+    </graphics>
+  </name>
+   <label>
+    <text>&lt;A,I&gt;</text>
+    <graphics>
+     <offset x="10" y="-10" />
+    </graphics>
+   </label>
+   <graphics>
+    <position x="265" y="50"/>
+   </graphics>
+  </transition>
+  <transition id="t-51C-DC31A-7">
+  <name>
+   <text>t4</text>
+    <graphics>
+     <offset x="0" y="0" />
+    </graphics>
+  </name>
+   <label>
+    <text>&lt;D,N&gt;</text>
+    <graphics>
+     <offset x="10" y="-10" />
+    </graphics>
+   </label>
+   <graphics>
+    <position x="270" y="210"/>
+   </graphics>
+  </transition>
+  <arc id="e-51C-DC33E-8" source="t-51C-DC2BC-4" target="p-51C-DC24F-2">
+  </arc>
+  <arc id="e-51C-DC34D-9" source="p-51C-DC24F-2" target="t-51C-DC2E0-5">
+  </arc>
+  <arc id="e-51C-DC353-10" source="t-51C-DC2FF-6" target="p-51C-DC29C-3">
+  </arc>
+  <arc id="e-51C-DC35A-11" source="p-51C-DC29C-3" target="t-51C-DC31A-7">
+  </arc>
+ </page>
+ </net>
+</pnml>

@@ -7,6 +7,11 @@ public class DLContent {
 	private List<ResourcesContent> resources;
 	private List<TasksContent> tasks;
 	
+	public DLContent(){
+		resources = new ArrayList<ResourcesContent>();
+		tasks = new ArrayList<TasksContent>();
+	}
+	
 	public List<ResourcesContent> getResources() {
 		return resources;
 	}

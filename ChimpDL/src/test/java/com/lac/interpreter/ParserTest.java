@@ -20,6 +20,7 @@ import com.lac.interpreter.mock.Class0;
 import com.lac.interpreter.mock.Class1;
 import com.lac.interpreter.mock.SimpleJsonContainer;
 import com.lac.interpreter.mock.SimpleJsonContainerInnerClass;
+import com.lac.petrinet.configuration.providers.PNMLConfigurationReader;
 import com.lac.petrinet.core.PetriNet;
 import com.lac.petrinet.exceptions.PetriNetException;
 
@@ -32,7 +33,7 @@ public class ParserTest {
 	@Test
 	public void validParseTest() throws IOException, URISyntaxException, PetriNetException{
 		String content = FileUtils.readFileToString(new File(getJarpath()+"/JsonFiles/config json example.txt"));
-		Parser parser = new Parser(null);
+		Parser parser = new Parser(mock(PetriNet.class));
 		parser.parseAndCreateObjects(content);
 	}
 	
@@ -78,14 +79,17 @@ public class ParserTest {
 	
 	@Test
 	public void validMethodExecution() throws Exception{
-		PetriNet petriNet = mock(PetriNet.class);
+		
+		PNMLConfigurationReader configReader = new PNMLConfigurationReader();
+		PetriNet petriNet = configReader.loadConfiguration("target/classes/pnml/validMethodExecution.pnml");
+		
 		ObjectMapper mapper = new ObjectMapper();
-		DLContent result = mapper.readValue(new File(getJarpath()+"/JsonFiles/config json example.txt"),
+		DLContent result = mapper.readValue(new File(getJarpath()+"/JsonFiles/ParserTest.conf"),
 				DLContent.class);
 		
 		
 		
-		String content = FileUtils.readFileToString(new File(getJarpath()+"/JsonFiles/config json example.txt"));
+		String content = FileUtils.readFileToString(new File(getJarpath()+"/JsonFiles/ParserTest.conf"));
 		Parser parser = new Parser(petriNet);
 		ResourcesTasksContainer container = parser.parseAndCreateObjects(content);
 		

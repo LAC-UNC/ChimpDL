@@ -13,7 +13,6 @@ import javax.swing.border.EmptyBorder;
 import com.lac.annotations.ResourcesFinder;
 import com.lac.interpreter.Interpreter;
 import com.lac.petrinet.core.PetriNet;
-import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.userentry.ConfigurationEntryHolder;
 import com.lac.userentry.ResourceInstances;
 

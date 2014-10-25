@@ -14,18 +14,19 @@ public class ActivityTest {
 
 	@Test
 	public void validCall() throws Exception{
-		Class0 instance = mock(Class0.class);
+		Class0 instance = new Class0();
 		Method method = instance.getClass().getMethod("method0");
 		Method method1 = instance.getClass().getMethod("method1");
 		
 		Activity act = new Activity(instance, method);
 		act.call();
 		Assert.assertTrue(instance.isMethod0Executed());
-		Assert.assertTrue(instance.isMethod1Executed());
+		Assert.assertFalse(instance.isMethod1Executed());
 		
+		instance = new Class0();
 		act = new Activity(instance, method1);
 		act.call();
-		Assert.assertTrue(instance.isMethod0Executed());
+		Assert.assertFalse(instance.isMethod0Executed());
 		Assert.assertTrue(instance.isMethod1Executed());
 	}
 	

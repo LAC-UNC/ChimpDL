@@ -1,7 +1,6 @@
 package com.lac.ui.screens;
 
 import java.awt.Dimension;
-import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;

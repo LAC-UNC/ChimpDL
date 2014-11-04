@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.scrceens.tasks;
 
 import java.awt.Component;
 import java.awt.EventQueue;

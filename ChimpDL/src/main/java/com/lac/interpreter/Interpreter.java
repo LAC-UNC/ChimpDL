@@ -1,11 +1,8 @@
 package com.lac.interpreter;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
 
-import org.apache.commons.io.FileUtils;
-
+import com.lac.parsers.FunctionalParser;
 import com.lac.petrinet.configuration.ConfigurationReader;
 import com.lac.petrinet.configuration.providers.PNMLConfigurationReader;
 import com.lac.petrinet.core.PetriNet;
@@ -13,7 +10,7 @@ import com.lac.petrinet.exceptions.PetriNetException;
 
 public class Interpreter {
 
-	private Parser parser;
+	private FunctionalParser parser;
 	private ConfigurationReader configReader;
 	private PetriNet petriNet;
 	
@@ -23,10 +20,10 @@ public class Interpreter {
 		petriNet = configReader.loadConfiguration(pnmlPath); 
 		
 		// create the resources and tasks that will be used
-		parser = new Parser(petriNet);
+		parser = new FunctionalParser(petriNet);
 		try {
-			 parser.parseAndCreateObjects(FileUtils.readFileToString(new File(getJarpath() + "./configuration.conf")));
-		} catch (IOException | URISyntaxException e) {
+			 parser.parseAndCreate( (new ChimpDLImpl()).getDescription(getJarpath() + "./configuration.conf") );
+		} catch (URISyntaxException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}
 		
@@ -43,12 +40,16 @@ public class Interpreter {
 		
 	}
 	
-	public void startListening(String ConfigFileLocation) throws PetriNetException{
+	public void startListening(String ConfigFileLocation, boolean isParentLocation) throws PetriNetException{
 		// create the resources and tasks that will be used
-		parser = new Parser(petriNet);
+		parser = new FunctionalParser(petriNet);
 		try {
-			 parser.parseAndCreateObjects(FileUtils.readFileToString(new File(ConfigFileLocation + "/configuration.conf")));
-		} catch (IOException e) {
+			if(isParentLocation)
+				parser.parseAndCreate((new ChimpDLImpl()).getDescription(ConfigFileLocation + "./configuration.conf"));
+			else
+				parser.parseAndCreate((new ChimpDLImpl()).getDescription(ConfigFileLocation ));
+				
+		} catch (PetriNetException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}
 		

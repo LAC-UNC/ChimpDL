@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.mainscreens;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,9 +37,9 @@ public class SaveConfigPanel extends JPanel {
 		ChimpDL contentManager = new ChimpDLImpl() ;
 		String path;
 		try {
-			path = getJarpath();;
+			path = getJarpath();
 			contentManager.saveConfiguration(path, config.getUserSelection());
-			interpreter.startListening(path);
+			interpreter.startListening(path, true);
 		} catch (PetriNetException | URISyntaxException e) {
 			e.printStackTrace();
 			new ErrorDialog(e.getMessage());

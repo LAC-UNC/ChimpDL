@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.mainscreens;
 
 import java.awt.BorderLayout;
 import java.awt.FileDialog;

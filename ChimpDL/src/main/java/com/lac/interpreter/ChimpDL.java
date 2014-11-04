@@ -5,7 +5,7 @@ import com.lac.petrinet.exceptions.PetriNetException;
 
 public interface ChimpDL {
 
-	public DLContent getDescription() throws PetriNetException ;
+	public String getDescription(String path) throws PetriNetException ;
 	
 	public void saveConfiguration(String path , DLContent content) throws PetriNetException ;
 	

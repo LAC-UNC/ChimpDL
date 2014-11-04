@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.scrceens.tasks;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import com.lac.activities.DLContents.TasksContent;
 import com.lac.petrinet.exceptions.PetriNetException;
+import com.lac.ui.mainscreens.MainFrame;
 import com.lac.userentry.ConfigurationEntryHolder;
 import com.lac.userentry.ResourceInstances;
 
@@ -118,6 +119,9 @@ public class TaskPanel extends JPanel {
 		} catch (PetriNetException e) {
 			MainFrame.showError(e);
 		}
+	}
+	
+	public void addTask(){
 	}
 
 }

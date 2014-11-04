@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.mainscreens;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -22,6 +22,7 @@ public class MainFrame extends JFrame {
 	protected PnmlSelectionPanel pnmlPanel = new PnmlSelectionPanel();
 	protected TaskAssociationPanel taskAssocPanel = new TaskAssociationPanel();
 	protected ResourcesManagementPanel resourcePanel = new ResourcesManagementPanel();
+	LoadSessionPanel sessionPanel = new LoadSessionPanel();
 	protected Interpreter interpreter;
 	protected SaveConfigPanel saveConfigPanel = new SaveConfigPanel();
 
@@ -81,9 +82,12 @@ public class MainFrame extends JFrame {
 
 	protected void backAction() {
 		if(pnmlPanel.isVisible()){
-		}		
+		}
+		else if(sessionPanel.isVisible()){
+			changeContentPanel(sessionPanel, pnmlPanel);
+		}
 		else if(resourcePanel.isVisible()){
-			changeContentPanel(resourcePanel, pnmlPanel);
+			changeContentPanel(resourcePanel, sessionPanel);
 		}
 		else if(taskAssocPanel.isVisible()){
 			changeContentPanel(taskAssocPanel, resourcePanel);
@@ -101,8 +105,11 @@ public class MainFrame extends JFrame {
 				interpreter = new Interpreter();
 				PetriNet petriNet = interpreter.readPnmlFile(path);
 				config.setPetriNet(petriNet);
-				changeContentPanel(pnmlPanel, resourcePanel);
-			}		
+				changeContentPanel(pnmlPanel, sessionPanel);
+			}
+			else if(sessionPanel.isVisible()){
+				changeContentPanel(sessionPanel, resourcePanel);
+			}
 			else if(resourcePanel.isVisible()){
 				for(ResourceInstances resource : resourcePanel.getResourceInstances()){
 					config.addUserEntryResource(resource.getInstanceName(),resource.getClazz() );
@@ -143,5 +150,15 @@ public class MainFrame extends JFrame {
 	public Interpreter getInterpreter() {
 		return interpreter;
 	}
+
+	public TaskAssociationPanel getTaskAssocPanel() {
+		return taskAssocPanel;
+	}
+
+	public ResourcesManagementPanel getResourcePanel() {
+		return resourcePanel;
+	}
+	
+	
 
 }

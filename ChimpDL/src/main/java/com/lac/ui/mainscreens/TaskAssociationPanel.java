@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.mainscreens;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,8 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.lac.activities.DLContents.TasksContent;
+import com.lac.ui.scrceens.tasks.TaskPanel;
 import com.lac.userentry.ConfigurationEntryHolder;
 import com.lac.userentry.ResourceInstances;
+
 import javax.swing.JScrollPane;
 
 //TODO: support multiple input transitions for a given task.

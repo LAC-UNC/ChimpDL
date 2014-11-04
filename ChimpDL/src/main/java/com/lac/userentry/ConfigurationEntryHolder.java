@@ -126,7 +126,7 @@ public class ConfigurationEntryHolder extends Observable{
 	
 	private String getJarpath() throws URISyntaxException {
 		String uri;
-		uri = ChimpDLImpl.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+		uri = ConfigurationEntryHolder.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 		while(uri.contains(".jar")){
 			uri = uri.substring(0,  uri.lastIndexOf("/"));
 		}

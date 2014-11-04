@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.scrceens.tasks;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -68,7 +68,7 @@ public class ActivityPanel extends JPanel {
 		return content;
 	}
 	
-	public void changeMethodComboBox(ActionEvent e){
+	protected void changeMethodComboBox(ActionEvent e){
 		@SuppressWarnings("unchecked")
 		Class<?> clazz = instanceMap.get(((JComboBox<String>) e.getSource()).getSelectedItem());
 		methodComboBox.removeAllItems();			
@@ -80,6 +80,13 @@ public class ActivityPanel extends JPanel {
 	
 	public int getComboBoxesWidth(){
 		return methodComboBox.getWidth()+resourcesComboBox.getWidth();
+	}
+	
+	public void addActivity(String instanceName, String method ){
+		resourcesComboBox.setSelectedItem(instanceName);
+		ActionEvent e = new ActionEvent(resourcesComboBox, 1, "");
+		changeMethodComboBox(e);
+		methodComboBox.setSelectedItem(method);
 	}
 	
 }

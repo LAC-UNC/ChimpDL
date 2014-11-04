@@ -20,6 +20,7 @@ import com.lac.interpreter.mock.Class0;
 import com.lac.interpreter.mock.Class1;
 import com.lac.interpreter.mock.SimpleJsonContainer;
 import com.lac.interpreter.mock.SimpleJsonContainerInnerClass;
+import com.lac.parsers.FunctionalParser;
 import com.lac.petrinet.configuration.providers.PNMLConfigurationReader;
 import com.lac.petrinet.core.PetriNet;
 import com.lac.petrinet.exceptions.PetriNetException;
@@ -33,16 +34,16 @@ public class ParserTest {
 	@Test
 	public void validParseTest() throws IOException, URISyntaxException, PetriNetException{
 		String content = FileUtils.readFileToString(new File(getJarpath()+"/JsonFiles/config json example.txt"));
-		Parser parser = new Parser(mock(PetriNet.class));
-		parser.parseAndCreateObjects(content);
+		FunctionalParser parser = new FunctionalParser(mock(PetriNet.class));
+		parser.parseAndCreate(content);
 	}
 	
 	@Test(expectedExceptions = PetriNetException.class)
 	public void invalidParseTest() throws  PetriNetException, IOException, URISyntaxException{
 		PetriNet petriNet = mock(PetriNet.class);
 		String content = FileUtils.readFileToString(new File(getJarpath()+"/JsonFiles/config json example Invalid.txt"));
-		Parser parser = new Parser(petriNet);
-		parser.parseAndCreateObjects(content);
+		FunctionalParser parser = new FunctionalParser(petriNet);
+		parser.parseAndCreate(content);
 	}
 	
 	@Test public void rightContentJsonMapping() throws JsonParseException, JsonMappingException, IOException, URISyntaxException{
@@ -90,8 +91,8 @@ public class ParserTest {
 		
 		
 		String content = FileUtils.readFileToString(new File(getJarpath()+"/JsonFiles/ParserTest.conf"));
-		Parser parser = new Parser(petriNet);
-		ResourcesTasksContainer container = parser.parseAndCreateObjects(content);
+		FunctionalParser parser = new FunctionalParser(petriNet);
+		ResourcesTasksContainer container = parser.parseAndCreate(content);
 		
 		for(TasksContent taskContent : result.getTasks()){
 			Task task = container.getTask(taskContent.getName());

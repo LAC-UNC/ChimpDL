@@ -1,4 +1,4 @@
-package com.lac.interpreter;
+package com.lac.parsers;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import com.lac.activities.DLContents.ActivityContent;
 import com.lac.activities.DLContents.DLContent;
 import com.lac.activities.DLContents.ResourcesContent;
 import com.lac.activities.DLContents.TasksContent;
+import com.lac.interpreter.ResourcesTasksContainer;
 import com.lac.petrinet.core.PetriNet;
 import com.lac.petrinet.exceptions.PetriNetException;
 
@@ -22,16 +23,16 @@ import com.lac.petrinet.exceptions.PetriNetException;
  * @author icaio
  *
  */
-public class Parser {
+public class FunctionalParser {
 	private PetriNet petriNet;
 	
 	
 	
-	public Parser(PetriNet petriNet){
+	public FunctionalParser(PetriNet petriNet){
 		this.petriNet = petriNet;
 	}
 	
-	public ResourcesTasksContainer parseAndCreateObjects(String jsonContent) throws PetriNetException {
+	public ResourcesTasksContainer parseAndCreate(String jsonContent) throws PetriNetException {
 		ResourcesTasksContainer container = new ResourcesTasksContainer();
 		// get all the description of the resources and tasks that will be used. 
 		DLContent objectDescription ;
@@ -88,7 +89,7 @@ public class Parser {
 		return mapper.readValue(jsonFile, DLContent.class);
 	}
 	
-	private DLContent getObjectsDescription(String jsonFileContent) throws JsonParseException, JsonMappingException, IOException{
+	public DLContent getObjectsDescription(String jsonFileContent) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.readValue(jsonFileContent, DLContent.class);
 	}

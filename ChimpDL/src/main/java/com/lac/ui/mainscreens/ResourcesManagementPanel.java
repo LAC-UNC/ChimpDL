@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.mainscreens;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -12,7 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.lac.ui.resources.ResourceInstancePanel;
 import com.lac.userentry.ResourceInstances;
+
 import javax.swing.JScrollPane;
 
 public class ResourcesManagementPanel extends JPanel {

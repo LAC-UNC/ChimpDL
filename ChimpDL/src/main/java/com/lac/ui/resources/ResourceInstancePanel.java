@@ -1,4 +1,4 @@
-package com.lac.ui.screens;
+package com.lac.ui.resources;
 
 import java.awt.Dimension;
 

@@ -2,63 +2,28 @@ package com.lac.ui.mainscreens;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URISyntaxException;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;
 
-import com.lac.interpreter.ChimpDL;
-import com.lac.interpreter.ChimpDLImpl;
-import com.lac.interpreter.Interpreter;
-import com.lac.petrinet.exceptions.PetriNetException;
-import com.lac.userentry.ConfigurationEntryHolder;
+import com.lac.ui.home.SaveConfigHome;
 
-public class SaveConfigPanel extends JPanel {
+public class SaveConfigPanel extends ControlledJPanel<SaveConfigHome> {
 
-	/**
-	 * Create the panel.
-	 */
-	public SaveConfigPanel() {
-		
+	public SaveConfigPanel(SaveConfigHome homeController) {
+		super(homeController);
+	}
+
+	@Override
+	protected void initComponents() {
 		JButton btnSaveConfigurationAnd = new JButton("Save Configuration and start");
 		btnSaveConfigurationAnd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				saveAndStartAction();
+				homeController.saveAndStartAction();
 			}
 		});
 		add(btnSaveConfigurationAnd);
-
-	}
-	
-	public void saveAndStartAction(){
-		
-		Interpreter interpreter = ((MainFrame) getTopLevelAncestor()).getInterpreter();
-		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
-		ChimpDL contentManager = new ChimpDLImpl() ;
-		String path;
-		try {
-			path = getJarpath();
-			contentManager.saveConfiguration(path, config.getUserSelection());
-			interpreter.startListening(path, true);
-		} catch (PetriNetException | URISyntaxException e) {
-			e.printStackTrace();
-			new ErrorDialog(e.getMessage());
-			return;
-		}
 		
 	}
 	
-	
-	private String getJarpath() throws URISyntaxException {
-		String uri;
-		uri = ChimpDLImpl.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-		while(uri.contains(".jar")){
-			uri = uri.substring(0,  uri.lastIndexOf("/"));
-		}
-		if(! uri.endsWith("/") || ! uri.endsWith("\\")){
-			uri = uri+"/";
-		}
-		return uri;
-	}
 
 }

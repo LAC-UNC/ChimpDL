@@ -14,107 +14,106 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import com.lac.activities.DLContents.TasksContent;
-import com.lac.ui.scrceens.tasks.TaskPanel;
-import com.lac.userentry.ConfigurationEntryHolder;
-import com.lac.userentry.ResourceInstances;
-
 import javax.swing.JScrollPane;
 
-//TODO: support multiple input transitions for a given task.
-public class TaskAssociationPanel extends JPanel {
+import com.lac.ui.home.TaskAssociationHome;
+import com.lac.ui.home.TaskHome;
+import com.lac.ui.scrceens.tasks.TaskPanel;
 
-	JPanel bodyPanel;
-	
-	private List<ResourceInstances> instanceNames;
+//TODO: support multiple input transitions for a given task.
+public class TaskAssociationPanel extends ControlledJPanel<TaskAssociationHome> {
+
+	public TaskAssociationPanel(TaskAssociationHome homeController) {
+		super(homeController);
+	}
+
+	private JPanel bodyPanel;
+
 	private List<TaskPanel> taskPanels = new ArrayList<TaskPanel>();
-	
+
 	/**
 	 * Create the panel.
 	 */
-	public TaskAssociationPanel() {
+
+
+	@Override
+	protected void initComponents() {
 		setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel titlePanel = new JPanel();
 		add(titlePanel, BorderLayout.NORTH);
-		
+
 		JLabel taskAssociationLabel = new JLabel("Task Association");
 		taskAssociationLabel.setForeground(Color.BLUE);
 		taskAssociationLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		titlePanel.add(taskAssociationLabel);
 		setAutoscrolls(true);
-		
+
 		bodyPanel = new JPanel();
 		bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
-		
+
 		JButton btnNewTask = new JButton("new Task");
 		btnNewTask.setAlignmentY(Component.TOP_ALIGNMENT);
 		btnNewTask.setAlignmentX(Component.CENTER_ALIGNMENT);
 		bodyPanel.add(btnNewTask);
 		bodyPanel.setAutoscrolls(true);
-		
+
 		JPanel buttonPanel = new JPanel();
 		add(buttonPanel, BorderLayout.SOUTH);
-		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				saveAction();
-			}
-		});
-		buttonPanel.add(btnSave);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
-		scrollPane.getViewport().add(bodyPanel);
+		scrollPane.setViewportView(bodyPanel);
 		scrollPane.setBorder(null);
 		scrollPane.setViewportBorder(null);
-//		add(bodyPanel, BorderLayout.CENTER);
-		
+		//		add(bodyPanel, BorderLayout.CENTER);
+
 		btnNewTask.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addNewTask();
 			}
 		});
+
 	}
-	
-	private void addNewTask(){
-		TaskPanel newTask = new TaskPanel();
-		taskPanels.add(newTask);
-		newTask.setResourceInstances(instanceNames);
+
+	public TaskPanel addNewTask(){
+		TaskHome taskHome = new TaskHome();
+		TaskPanel newTask = new TaskPanel(taskHome);
+		taskHome.setBaseComponent(newTask);
+		getTaskPanels().add(newTask);
 		newTask.setMaximumSize(new Dimension(999,27 ));
 		newTask.setAlignmentY(Component.TOP_ALIGNMENT);
 		newTask.setAlignmentX(Component.CENTER_ALIGNMENT);
-		bodyPanel.add(newTask);
-		bodyPanel.revalidate();
-		bodyPanel.repaint();
+		getBodyPanel().add(newTask);
+		getBodyPanel().revalidate();
+		getBodyPanel().repaint();
 		revalidate();
 		repaint();
+		return newTask;
+	}
+
+	public List<TaskPanel> getTaskPanels() {
+		return taskPanels;
+	}
+
+
+
+	public void setTaskPanels(List<TaskPanel> taskPanels) {
+		this.taskPanels = taskPanels;
+	}
+
+
+
+	public JPanel getBodyPanel() {
+		return bodyPanel;
+	}
+
+
+
+	public void setBodyPanel(JPanel bodyPanel) {
+		this.bodyPanel = bodyPanel;
 	}
 	
-	public void setInstanceName(List<ResourceInstances> instanceNames){
-		this.instanceNames = instanceNames;
-		for(TaskPanel panel : taskPanels){
-			panel.setResourceInstances(instanceNames);
-		}
-	}
 	
-	@Deprecated
-	public List<TasksContent> getTasksContent(){
-		List<TasksContent> taskList = new ArrayList<TasksContent>();
-		for(TaskPanel panel : taskPanels){
-			taskList.add(panel.getTask());
-		}
-		return taskList;
-	}
-	
-	public void saveAction(){
-		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
-		config.emptyTask();
-		for(TaskPanel panel : taskPanels){
-			panel.save();
-		}
-	}
-	
+
 }

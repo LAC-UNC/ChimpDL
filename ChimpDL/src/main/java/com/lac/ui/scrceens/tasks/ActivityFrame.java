@@ -16,12 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import com.lac.activities.DLContents.ActivityContent;
-import com.lac.userentry.ResourceInstances;
 
 public class ActivityFrame extends JFrame {
 
 	private JPanel contentPane;
-	private List<ResourceInstances> resourceInstancesNames;
 	private List<ActivityPanel> activities = new ArrayList<ActivityPanel>(); 
 	private JScrollPane scrollPane;
 
@@ -76,7 +74,6 @@ public class ActivityFrame extends JFrame {
 	private void addNewActivityPanel(){
 		ActivityPanel actPanel = new ActivityPanel();
 		activities.add(actPanel);
-		actPanel.addResources(resourceInstancesNames);
 		actPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		actPanel.setSize(actPanel.getWidth(), 16);
 		contentPane.add(actPanel);
@@ -86,14 +83,7 @@ public class ActivityFrame extends JFrame {
 		contentPane.revalidate();
 	}
 
-	public void setResourceInstances(List<ResourceInstances> instanceNames) {
-		this.resourceInstancesNames = instanceNames;
-		for(ActivityPanel activitiy : activities){
-			activitiy.addResources(instanceNames);		
-			
-		}
-	}
-	
+	// TODO: probably this should be move to a home functionality. 
 	public List<ActivityContent> getActivities(){
 		List<ActivityContent> activityList = new ArrayList<ActivityContent>();
 		for(ActivityPanel panel : activities){

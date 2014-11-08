@@ -5,6 +5,13 @@ public class ResourcesContent {
 	private String implementationName;
 	private String className;
 	
+	public ResourcesContent(){}
+	
+	public ResourcesContent(String implementationName, String className){
+		this.implementationName = implementationName;
+		this.className = className;
+	}
+	
 	public String getImplementationName() {
 		return implementationName;
 	}

@@ -22,6 +22,18 @@ public class ErrorDialog {
 	public ErrorDialog(String text) {
 		initialize(text);
 	}
+	
+	public ErrorDialog(Exception e){
+		e.printStackTrace();
+		String message = e.getMessage();
+		while((message == null || message.equals("")) && e.getCause() != null){
+			message = e.getCause().getMessage();
+		}
+		if(message == null || message.equals("")){
+			message = "Unexpected error.";
+		}
+		initialize(message);
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -57,5 +69,7 @@ public class ErrorDialog {
 		buttonsPanel.add(btnAccept);
 		frame.setVisible(true);
 	}
+	
+
 
 }

@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,12 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.lac.activities.DLContents.TasksContent;
-import com.lac.petrinet.exceptions.PetriNetException;
-import com.lac.ui.mainscreens.MainFrame;
+import com.lac.ui.home.TaskHome;
+import com.lac.ui.mainscreens.ControlledJPanel;
 import com.lac.userentry.ConfigurationEntryHolder;
-import com.lac.userentry.ResourceInstances;
 
-public class TaskPanel extends JPanel {
+public class TaskPanel extends ControlledJPanel<TaskHome> {
+
+	public TaskPanel(TaskHome homeController) {
+		super(homeController);
+	}
+
 	private JPanel taskPanel;
 	private JPanel Content;
 	private ActivityFrame actFrame;
@@ -28,10 +31,23 @@ public class TaskPanel extends JPanel {
 	private JComboBox<String> transitionOutputComboBox;
 	private JTextField taskNameTextField;
 	
-	/**
-	 * Create the panel.
-	 */
-	public TaskPanel() {
+	private void editActivities(){
+		actFrame.setVisible(true);
+	}
+
+	// potencially a problem on the assigment of iinput transition name due the type convertion. 
+	public TasksContent getTask(){
+		TasksContent task = new TasksContent();
+		task.setActivities(actFrame.getActivities());
+		task.setInputTransitionName( new ArrayList(Arrays.asList(transitionInputComboBox.getSelectedObjects())));
+		task.setName(taskNameTextField.getText());
+		task.setOutputTransitionName(transitionOutputComboBox.getSelectedItem().toString());
+		
+		return task;
+	}
+	
+	@Override
+	protected void initComponents() {
 		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		Content = new JPanel();
@@ -85,43 +101,43 @@ public class TaskPanel extends JPanel {
 				
 				editActivities();
 			}
-		});
-		
-	}
-	
-	private void editActivities(){
-		actFrame.setVisible(true);
+		});		
 	}
 
-	public void setResourceInstances(List<ResourceInstances> instanceNames) {
-		if(actFrame == null){
-			actFrame = new ActivityFrame();
-		}
-		actFrame.setResourceInstances(instanceNames);
-	}
-	
-	// potencially a problem on the assigment of iinput transition name due the type convertion. 
-	public TasksContent getTask(){
-		TasksContent task = new TasksContent();
-		task.setActivities(actFrame.getActivities());
-		task.setInputTransitionName( new ArrayList(Arrays.asList(transitionInputComboBox.getSelectedObjects())));
-		task.setName(taskNameTextField.getText());
-		task.setOutputTransitionName(transitionOutputComboBox.getSelectedItem().toString());
-		
-		return task;
-	}
-	
-	public void save(){
-		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
-		try {
-			config.addtask(new ArrayList(Arrays.asList(transitionInputComboBox.getSelectedObjects())), 
-					transitionOutputComboBox.getSelectedItem().toString(), actFrame.getActivities(), taskNameTextField.getText());
-		} catch (PetriNetException e) {
-			MainFrame.showError(e);
-		}
-	}
-	
-	public void addTask(){
+	public ActivityFrame getActFrame() {
+		return actFrame;
 	}
 
+	public void setActFrame(ActivityFrame actFrame) {
+		this.actFrame = actFrame;
+	}
+
+	public JComboBox<String> getTransitionInputComboBox() {
+		return transitionInputComboBox;
+	}
+
+	public void setTransitionInputComboBox(JComboBox<String> transitionInputComboBox) {
+		this.transitionInputComboBox = transitionInputComboBox;
+	}
+
+	public JComboBox<String> getTransitionOutputComboBox() {
+		return transitionOutputComboBox;
+	}
+
+	public void setTransitionOutputComboBox(
+			JComboBox<String> transitionOutputComboBox) {
+		this.transitionOutputComboBox = transitionOutputComboBox;
+	}
+
+	public JTextField getTaskNameTextField() {
+		return taskNameTextField;
+	}
+
+	public void setTaskNameTextField(JTextField taskNameTextField) {
+		this.taskNameTextField = taskNameTextField;
+	}
+	public TaskHome getHome(){
+		return homeController;
+	}
+	
 }

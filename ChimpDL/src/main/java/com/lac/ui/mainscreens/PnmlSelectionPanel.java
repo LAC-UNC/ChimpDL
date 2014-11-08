@@ -17,59 +17,16 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+import com.lac.ui.home.PnmlSelectionHome;
 
-public class PnmlSelectionPanel extends JPanel {
+public class PnmlSelectionPanel extends ControlledJPanel<PnmlSelectionHome> {
+	
+	public PnmlSelectionPanel(PnmlSelectionHome homeController) {
+		super(homeController);
+	}
+
 	private JTextField pathTextField;
 
-	/**
-	 * Create the panel.
-	 */
-	public PnmlSelectionPanel() {
-		setLayout(new BorderLayout(0, 0));
-		
-		JPanel titlePanel = new JPanel();
-		add(titlePanel, BorderLayout.NORTH);
-		
-		JLabel titleLabel = new JLabel("Pnml file Selection");
-		titlePanel.add(titleLabel);
-		
-		JPanel bodyPanel = new JPanel();
-		add(bodyPanel, BorderLayout.CENTER);
-		bodyPanel.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("40dlu"),
-				ColumnSpec.decode("152px:grow"),
-				ColumnSpec.decode("86px"),},
-			new RowSpec[] {
-				FormSpecs.LINE_GAP_ROWSPEC,
-				RowSpec.decode("20px"),
-				RowSpec.decode("29px"),
-				RowSpec.decode("25px"),}));
-		
-		JLabel filePathLabel = new JLabel("File path:");
-		bodyPanel.add(filePathLabel, "2, 4, left, center");
-		
-		pathTextField = new JTextField();
-		pathTextField.setText("C:\\\\");
-		bodyPanel.add(pathTextField, "3, 4, fill, default");
-		pathTextField.setColumns(10);
-		
-		JButton btnBrowse = new JButton("Browse");
-		btnBrowse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try{
-					File pnmlFile = browse();
-					if(pnmlFile != null)
-						pathTextField.setText(pnmlFile.getAbsolutePath());
-				}
-				catch(FileSystemException fse){
-					new ErrorDialog(fse.getMessage());
-				}
-			}
-		});
-		bodyPanel.add(btnBrowse, "4, 4, center, center");
-
-	}
 
 	public File browse() throws FileSystemException{
 		Frame mainFrame = new Frame();
@@ -98,8 +55,55 @@ public class PnmlSelectionPanel extends JPanel {
 			return filesSelected;
 		}
 	}
-	
+
 	public String getPath(){
 		return pathTextField.getText();
+	}
+
+	@Override
+	protected void initComponents() {
+		setLayout(new BorderLayout(0, 0));
+
+		JPanel titlePanel = new JPanel();
+		add(titlePanel, BorderLayout.NORTH);
+
+		JLabel titleLabel = new JLabel("Pnml file Selection");
+		titlePanel.add(titleLabel);
+
+		JPanel bodyPanel = new JPanel();
+		add(bodyPanel, BorderLayout.CENTER);
+		bodyPanel.setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.UNRELATED_GAP_COLSPEC,
+				ColumnSpec.decode("40dlu"),
+				ColumnSpec.decode("152px:grow"),
+				ColumnSpec.decode("86px"),},
+				new RowSpec[] {
+				FormSpecs.LINE_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				RowSpec.decode("29px"),
+				RowSpec.decode("25px"),}));
+
+		JLabel filePathLabel = new JLabel("File path:");
+		bodyPanel.add(filePathLabel, "2, 4, left, center");
+
+		pathTextField = new JTextField();
+		pathTextField.setText("C:\\\\");
+		bodyPanel.add(pathTextField, "3, 4, fill, default");
+		pathTextField.setColumns(10);
+
+		JButton btnBrowse = new JButton("Browse");
+		btnBrowse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					File pnmlFile = browse();
+					if(pnmlFile != null)
+						pathTextField.setText(pnmlFile.getAbsolutePath());
+				}
+				catch(FileSystemException fse){
+					new ErrorDialog(fse);
+				}
+			}
+		});
+		bodyPanel.add(btnBrowse, "4, 4, center, center");		
 	}
 }

@@ -11,21 +11,26 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import com.lac.ui.resources.ResourceInstancePanel;
-import com.lac.userentry.ResourceInstances;
-
 import javax.swing.JScrollPane;
 
-public class ResourcesManagementPanel extends JPanel {
+import com.lac.ui.home.ResourcesManagementHome;
+import com.lac.ui.resources.ResourceInstancePanel;
 
-	JPanel contentPanel;
-	List<ResourceInstancePanel> instancePanelList = new ArrayList<ResourceInstancePanel>();
+public class ResourcesManagementPanel extends ControlledJPanel<ResourcesManagementHome> {
+
 	
-	/**
-	 * Create the panel.
-	 */
-	public ResourcesManagementPanel() {
+	public ResourcesManagementPanel(ResourcesManagementHome homeController) {
+		super(homeController);
+	}
+
+	private JPanel contentPanel;
+	JScrollPane scrollPane ;
+	JButton btnAddResourceInstance ;
+	private List<ResourceInstancePanel> instancePanelList = new ArrayList<ResourceInstancePanel>();
+
+
+
+	protected void initComponents(){
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel titlePanel = new JPanel();
@@ -37,7 +42,7 @@ public class ResourcesManagementPanel extends JPanel {
 		contentPanel = new JPanel();
 		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 		
-		JButton btnAddResourceInstance = new JButton("Add Resource Instance ");
+		btnAddResourceInstance = new JButton("Add Resource Instance ");
 		btnAddResourceInstance.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAddResourceInstance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -46,11 +51,13 @@ public class ResourcesManagementPanel extends JPanel {
 		});
 		contentPanel.add(btnAddResourceInstance);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
 		scrollPane.setBorder(null);
 		add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setVisible(true);
 		scrollPane.setViewportView(contentPanel);
+		contentPanel.setVisible(true);
 
 	}
 	
@@ -64,21 +71,29 @@ public class ResourcesManagementPanel extends JPanel {
 		revalidate();
 		repaint();
 	}
-	
-//	public List<ResourcesContent> saveInstance(){
-//		List<ResourcesContent> resourceInstances = new ArrayList<ResourcesContent>(); 
-//		for(ResourceInstancePanel panel : instancePanelList){
-//			resourceInstances.add(panel.getInstanceInfo());
-//		}
-//		return resourceInstances;
-//	}
-	
-	public List<ResourceInstances> getResourceInstances() {
-		List<ResourceInstances> instanceNames = new ArrayList<ResourceInstances>();
-		for(ResourceInstancePanel panel : instancePanelList){
-			instanceNames.add(panel.getInstanceInfo());
+
+	public void removeResources(){
+		for(JPanel resourcePanel : instancePanelList ){
+			contentPanel.remove(resourcePanel);
 		}
-		return instanceNames;
+		//TODO: Check if this kind of removeAll is possible. 
+		instancePanelList.removeAll(instancePanelList);
+	}
+
+	public List<ResourceInstancePanel> getInstancePanelList() {
+		return instancePanelList;
+	}
+
+	public void setInstancePanelList(List<ResourceInstancePanel> instancePanelList) {
+		this.instancePanelList = instancePanelList;
+	}
+
+	public JPanel getContentPanel() {
+		return contentPanel;
+	}
+
+	public void setContentPanel(JPanel contentPanel) {
+		this.contentPanel = contentPanel;
 	}
 
 

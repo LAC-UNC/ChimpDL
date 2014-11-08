@@ -40,11 +40,11 @@ public class Interpreter {
 		
 	}
 	
-	public void startListening(String ConfigFileLocation, boolean isParentLocation) throws PetriNetException{
+	public void startListening(String ConfigFileLocation, boolean isDefaultName) throws PetriNetException{
 		// create the resources and tasks that will be used
 		parser = new FunctionalParser(petriNet);
 		try {
-			if(isParentLocation)
+			if(isDefaultName)
 				parser.parseAndCreate((new ChimpDLImpl()).getDescription(ConfigFileLocation + "./configuration.conf"));
 			else
 				parser.parseAndCreate((new ChimpDLImpl()).getDescription(ConfigFileLocation ));
@@ -57,9 +57,12 @@ public class Interpreter {
 		petriNet.startListening();
 	}
 	
-	private String getJarpath() throws URISyntaxException {
-		final String uri;
+	public static String getJarpath() throws URISyntaxException {
+		String uri;
 		uri = Interpreter.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+		while(uri.contains(".jar")){
+			uri = uri.substring(0,  uri.lastIndexOf("/"));
+		}
 		return uri;
 	}
 	

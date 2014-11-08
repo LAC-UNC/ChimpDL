@@ -17,26 +17,37 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import com.lac.activities.DLContents.ActivityContent;
-import com.lac.userentry.ResourceInstances;
+import com.lac.activities.DLContents.ResourcesContent;
+import com.lac.ui.mainscreens.ErrorDialog;
+import com.lac.userentry.ConfigurationEntryHolder;
 
 public class ActivityPanel extends JPanel {
 
 	JComboBox<String> resourcesComboBox;
 	JComboBox<String> methodComboBox;	
 	Set<String> instanceNamesSet = new HashSet<String>();
-	Map<String, Class<?>> instanceMap = new HashMap<String, Class<?>>();
+	Map<String, String> instanceMap = new HashMap<String, String>();
 	
 	/**
 	 * Create the panel.
 	 */
 	public ActivityPanel() {
+		initComponents();
+		addResources(ConfigurationEntryHolder.getInstance().getDlContent().getResources());
+	}
+	
+	private void initComponents(){
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		resourcesComboBox = new JComboBox<String>();
 		resourcesComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeMethodComboBox(e);
+				try {
+					changeMethodComboBox(e);
+				} catch (SecurityException | ClassNotFoundException e1) {
+					new ErrorDialog(e1);
+				}
 			}
 		});
 		resourcesComboBox.setMaximumRowCount(20);
@@ -47,15 +58,12 @@ public class ActivityPanel extends JPanel {
 		add(methodComboBox);
 		this.setMaximumSize(new Dimension(999,25));
 		this.setAlignmentY(Component.TOP_ALIGNMENT);
-		
-
 	}
 	
-	public void addResources(List<ResourceInstances> instanceNames){
-		for(ResourceInstances instanceInfo : instanceNames){
-			if(instanceMap.put(instanceInfo.getInstanceName(), instanceInfo.getClazz()) == null){
-				resourcesComboBox.addItem(instanceInfo.getInstanceName());
-			}
+	public void addResources(List<ResourcesContent> instanceNames){
+		for(ResourcesContent instanceInfo : instanceNames){
+			instanceMap.put(instanceInfo.getImplementationName(), instanceInfo.getClassName());
+			resourcesComboBox.addItem(instanceInfo.getImplementationName());
 		}
 		resourcesComboBox.validate();
 		resourcesComboBox.repaint();
@@ -68,11 +76,11 @@ public class ActivityPanel extends JPanel {
 		return content;
 	}
 	
-	protected void changeMethodComboBox(ActionEvent e){
+	protected void changeMethodComboBox(ActionEvent e) throws SecurityException, ClassNotFoundException{
 		@SuppressWarnings("unchecked")
-		Class<?> clazz = instanceMap.get(((JComboBox<String>) e.getSource()).getSelectedItem());
-		methodComboBox.removeAllItems();			
-		for(Method m : clazz.getDeclaredMethods()){
+		String className = instanceMap.get(((JComboBox<String>) e.getSource()).getSelectedItem());
+		methodComboBox.removeAllItems();
+		for(Method m : Class.forName(className).getDeclaredMethods()){
 			methodComboBox.addItem(m.getName());
 		}
 		
@@ -82,7 +90,7 @@ public class ActivityPanel extends JPanel {
 		return methodComboBox.getWidth()+resourcesComboBox.getWidth();
 	}
 	
-	public void addActivity(String instanceName, String method ){
+	public void addActivity(String instanceName, String method ) throws SecurityException, ClassNotFoundException{
 		resourcesComboBox.setSelectedItem(instanceName);
 		ActionEvent e = new ActionEvent(resourcesComboBox, 1, "");
 		changeMethodComboBox(e);

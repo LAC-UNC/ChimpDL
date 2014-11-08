@@ -1,11 +1,8 @@
 package com.lac.userentry;
 
-import java.lang.reflect.Method;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
@@ -13,6 +10,7 @@ import com.lac.activities.DLContents.ActivityContent;
 import com.lac.activities.DLContents.DLContent;
 import com.lac.activities.DLContents.TasksContent;
 import com.lac.interpreter.ChimpDLImpl;
+import com.lac.interpreter.Interpreter;
 import com.lac.petrinet.core.PetriNet;
 import com.lac.petrinet.exceptions.PetriNetException;
 
@@ -22,13 +20,12 @@ public class ConfigurationEntryHolder extends Observable{
 	private static ConfigurationEntryHolder INSTANCE = null;
 
 	private PetriNet petriNet;
-	private Map<String,Class<?>> resourceInstancesMap ;
-	private DLContent userSelection ;
+	private DLContent dlContent ;
+	private Interpreter interpreter;
 
 	// Private constructor suppresses 
 	private ConfigurationEntryHolder(){
-		userSelection = new DLContent();
-		resourceInstancesMap = new HashMap<String, Class<?>>(); 
+		dlContent = new DLContent();
 	}
 
 	private static void createInstance() {
@@ -66,16 +63,12 @@ public class ConfigurationEntryHolder extends Observable{
 //		this.notifyObservers();
 //	}
 	
+	public PetriNet getPetriNet() {
+		return petriNet;
+	}
+
 	public void addUserEntryResource(String implementationName, Class<?> clazz) throws PetriNetException{
-		userSelection.addResource(implementationName,clazz.getCanonicalName());
-		resourceInstancesMap.put(implementationName, clazz);
-		ChimpDLImpl chimpDl = new ChimpDLImpl();
-		try {
-			chimpDl.saveConfiguration(getJarpath(), userSelection);
-		} catch (URISyntaxException e) {
-			throw new PetriNetException(e.getMessage(),e);
-		}
-		
+		dlContent.addResource(implementationName,clazz.getCanonicalName());
 	}
 	
 	public void addtask( List<String> inputTransitionName,String outputTransitionName, List<ActivityContent> activities, 
@@ -85,10 +78,10 @@ public class ConfigurationEntryHolder extends Observable{
 		task.setInputTransitionName(inputTransitionName);
 		task.setName(name);
 		task.setOutputTransitionName(outputTransitionName);
-		userSelection.addTask(task);
+		dlContent.addTask(task);
 		ChimpDLImpl chimpDl = new ChimpDLImpl();
 		try {
-			chimpDl.saveConfiguration(getJarpath(), userSelection);
+			chimpDl.saveConfiguration(getJarpath(), dlContent);
 		} catch (URISyntaxException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}
@@ -107,21 +100,25 @@ public class ConfigurationEntryHolder extends Observable{
 		else
 			return new HashSet<String>();
 	}
-	
-	public Set<String> getResourceInstances(){
-		return resourceInstancesMap.keySet();
+
+	public DLContent getDlContent() {
+		return dlContent;
 	}
 	
-	public Method[] getDeclaredMethod(String instanceName){
-		return resourceInstancesMap.get(instanceName).getDeclaredMethods();
+	public void setDlContent(DLContent dlContent) {
+		this.dlContent = dlContent;
 	}
 
-	public DLContent getUserSelection() {
-		return userSelection;
+	public Interpreter getInterpreter() {
+		return interpreter;
 	}
-	
+
+	public void setInterpreter(Interpreter interpreter) {
+		this.interpreter = interpreter;
+	}
+
 	public void emptyTask(){
-		userSelection.emptyTask();
+		dlContent.emptyTask();
 	}
 	
 	private String getJarpath() throws URISyntaxException {

@@ -105,6 +105,8 @@ public class TaskPanel extends ControlledJPanel<TaskHome> {
 	}
 
 	public ActivityFrame getActFrame() {
+		if(actFrame == null)
+			this.actFrame = new ActivityFrame();
 		return actFrame;
 	}
 

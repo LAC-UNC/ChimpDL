@@ -36,13 +36,12 @@ public class TaskHome extends Home<TaskPanel> {
 		baseComponent.getTransitionInputComboBox().setSelectedItem(transitionInputComboBox.get(0));
 		baseComponent.getTransitionOutputComboBox().setSelectedItem(transitionOutputComboBox);
 		baseComponent.getTaskNameTextField().setText(taskNameText);
-		ActivityFrame activityFrame = new ActivityFrame();
+		ActivityFrame activityFrame = baseComponent.getActFrame();
 		for(ActivityContent activity : activities){
 			ActivityPanel activityPanel = new ActivityPanel();
 			activityPanel.addActivity(activity.getObj(), activity.getMethod());
-			activityFrame.add(activityPanel);
+			activityFrame.addActivityPanel(activityPanel);
 		}
-		baseComponent.setActFrame(activityFrame);
 	}
 	
 	public void save(){

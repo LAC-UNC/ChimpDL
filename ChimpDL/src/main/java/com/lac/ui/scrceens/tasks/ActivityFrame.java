@@ -82,6 +82,13 @@ public class ActivityFrame extends JFrame {
 		contentPane.revalidate();
 		contentPane.revalidate();
 	}
+	
+	public void addActivityPanel(ActivityPanel actPanel){
+		activities.add(actPanel);
+		actPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		actPanel.setSize(actPanel.getWidth(), 16);
+		contentPane.add(actPanel);
+	}
 
 	// TODO: probably this should be move to a home functionality. 
 	public List<ActivityContent> getActivities(){
@@ -89,7 +96,6 @@ public class ActivityFrame extends JFrame {
 		for(ActivityPanel panel : activities){
 			activityList.add(panel.getActivity());
 		}
-		
 		return activityList;
 	}
 

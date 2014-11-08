@@ -33,7 +33,8 @@ public class TaskAssociationHome extends Home<TaskAssociationPanel> {
 		return;
 	}
 	
-	//TODO: check this functionality.
+	//TODO: check this functionality. The call to getHome.save() it is kind of award, shouldn't be doing everything in this single method 
+	// instead of calling hierarchy to other ones ? 
 	public void saveAction(){
 		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
 		config.emptyTask();

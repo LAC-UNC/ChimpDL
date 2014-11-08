@@ -16,20 +16,18 @@ public class TaskHome extends Home<TaskPanel> {
 
 	@Override
 	public void nextAction() throws PetriNetException {
-		// TODO Auto-generated method stub
+		return;
 		
 	}
 
 	@Override
 	public void fowardRender() {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 	@Override
 	public void backAction() throws PetriNetException {
-		// TODO Auto-generated method stub
-		
+		return;		
 	}
 	
 	//TODO: fix the List of transition to be a real list not just one ! the get(0) is a major issue for the future

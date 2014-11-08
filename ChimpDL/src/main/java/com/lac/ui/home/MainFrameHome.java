@@ -32,8 +32,7 @@ public class MainFrameHome extends Home<MainFrame> {
 
 	@Override
 	public void fowardRender() {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
 
 	@Override

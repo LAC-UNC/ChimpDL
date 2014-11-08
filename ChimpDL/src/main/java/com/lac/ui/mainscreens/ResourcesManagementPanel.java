@@ -76,7 +76,6 @@ public class ResourcesManagementPanel extends ControlledJPanel<ResourcesManageme
 		for(JPanel resourcePanel : instancePanelList ){
 			contentPanel.remove(resourcePanel);
 		}
-		//TODO: Check if this kind of removeAll is possible. 
 		instancePanelList.removeAll(instancePanelList);
 	}
 

@@ -83,8 +83,7 @@ public class FunctionalParser {
 		return container;
 	}
 	
-	@SuppressWarnings("unused")
-	private DLContent getObjectsDescription(File jsonFile) throws JsonParseException, JsonMappingException, IOException{
+	public DLContent getObjectsDescription(File jsonFile) throws JsonParseException, JsonMappingException, IOException{
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.readValue(jsonFile, DLContent.class);
 	}

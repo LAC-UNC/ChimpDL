@@ -96,7 +96,7 @@ public class TaskPanel extends ControlledJPanel<TaskHome> {
 			public void actionPerformed(ActionEvent e) {
 				if(actFrame == null){
 					actFrame = new ActivityFrame();
-					actFrame.setVisible(true);
+//					actFrame.setVisible(true);
 				}
 				
 				editActivities();

@@ -16,6 +16,8 @@ public class TaskAssociationHome extends Home<TaskAssociationPanel> {
 
 	@Override
 	public void fowardRender() throws PetriNetException {
+		baseComponent.getBodyPanel().removeAll();
+		baseComponent.getTaskPanels().clear();
 		for(TasksContent tasks : ConfigurationEntryHolder.getInstance().getDlContent().getTasks()){
 			TaskPanel taskPanel = baseComponent.addNewTask();
 			try {

@@ -72,16 +72,16 @@ public class PnmlSelectionPanel extends ControlledJPanel<PnmlSelectionHome> {
 
 		JPanel bodyPanel = new JPanel();
 		add(bodyPanel, BorderLayout.CENTER);
-		bodyPanel.setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("40dlu"),
-				ColumnSpec.decode("152px:grow"),
-				ColumnSpec.decode("86px"),},
-				new RowSpec[] {
-				FormSpecs.LINE_GAP_ROWSPEC,
-				RowSpec.decode("20px"),
-				RowSpec.decode("29px"),
-				RowSpec.decode("25px"),}));
+//		bodyPanel.setLayout(new FormLayout(new ColumnSpec[] {
+//				FormSpecs.UNRELATED_GAP_COLSPEC,
+//				ColumnSpec.decode("40dlu"),
+//				ColumnSpec.decode("152px:grow"),
+//				ColumnSpec.decode("86px"),},
+//				new RowSpec[] {
+//				FormSpecs.LINE_GAP_ROWSPEC,
+//				RowSpec.decode("20px"),
+//				RowSpec.decode("29px"),
+//				RowSpec.decode("25px"),}));
 
 		JLabel filePathLabel = new JLabel("File path:");
 		bodyPanel.add(filePathLabel, "2, 4, left, center");

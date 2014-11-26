@@ -64,8 +64,8 @@ public class MainFrameHome extends Home<MainFrame> {
 		baseComponent.getContentPane().add(target, BorderLayout.CENTER);
 		if(target.getHomeController()  != null && isFoward)
 			target.getHomeController() .fowardRender();
-		else if((target.getHomeController()  != null && ! isFoward))
-			target.getHomeController() .backAction();
+//		else if((target.getHomeController()  != null && ! isFoward))
+//			target.getHomeController() .backAction(); // TODO: change this. this should this be "backRender()" or nothing. 
 		baseComponent.getContentPane().revalidate();
 		baseComponent.getContentPane().repaint();
 		baseComponent.revalidate();

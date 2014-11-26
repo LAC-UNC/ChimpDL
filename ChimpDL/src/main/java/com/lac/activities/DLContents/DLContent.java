@@ -2,7 +2,11 @@ package com.lac.activities.DLContents;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Representation of the json which contains all the configuration needed for the running. 
+ * @author icaio
+ *
+ */
 public class DLContent {
 	private List<ResourcesContent> resources;
 	private List<TasksContent> tasks;

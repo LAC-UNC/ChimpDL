@@ -9,7 +9,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import com.lac.activities.DLContents.DLContent;
 import com.lac.petrinet.exceptions.PetriNetException;
 
-public class ChimpDLImpl implements ChimpDL {
+public class ChimpDLFile implements ChimpDL {
 
 	@Override
 	public String getDescription(String path) throws PetriNetException {

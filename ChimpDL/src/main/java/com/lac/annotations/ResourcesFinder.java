@@ -17,10 +17,6 @@ public class ResourcesFinder {
 		 
 		 resources = reflections.getTypesAnnotatedWith(Resource.class);
 		 
-		 for(Class<?> resource : resources){
-			 System.out.println(resource.getName());
-		 }
-		 
 		 return resources;
 	}
 	

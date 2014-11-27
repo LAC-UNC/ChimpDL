@@ -12,20 +12,11 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.testng.annotations.Test;
 
-import com.lac.activities.Task;
 import com.lac.activities.DLContents.DLContent;
-import com.lac.activities.DLContents.ResourcesContent;
-import com.lac.activities.DLContents.TasksContent;
-import com.lac.interpreter.mock.Class0;
-import com.lac.interpreter.mock.Class1;
 import com.lac.interpreter.mock.SimpleJsonContainer;
 import com.lac.interpreter.mock.SimpleJsonContainerInnerClass;
-import com.lac.parsers.FunctionalParser;
-import com.lac.petrinet.configuration.providers.PNMLConfigurationReader;
-import com.lac.petrinet.core.PetriNet;
+import com.lac.parsers.JsonParser;
 import com.lac.petrinet.exceptions.PetriNetException;
-
-import static org.mockito.Mockito.mock;
 
 public class ParserTest {
 	
@@ -34,16 +25,15 @@ public class ParserTest {
 	@Test
 	public void validParseTest() throws IOException, URISyntaxException, PetriNetException{
 		String content = FileUtils.readFileToString(new File(getJarpath()+"/JsonFiles/config json example.txt"));
-		FunctionalParser parser = new FunctionalParser(mock(PetriNet.class));
-		parser.parseAndCreate(content);
+		JsonParser parser = new JsonParser();
+		parser.parse(content);
 	}
 	
 	@Test(expectedExceptions = PetriNetException.class)
 	public void invalidParseTest() throws  PetriNetException, IOException, URISyntaxException{
-		PetriNet petriNet = mock(PetriNet.class);
 		String content = FileUtils.readFileToString(new File(getJarpath()+"/JsonFiles/config json example Invalid.txt"));
-		FunctionalParser parser = new FunctionalParser(petriNet);
-		parser.parseAndCreate(content);
+		JsonParser parser = new JsonParser();
+		parser.parse(content);
 	}
 	
 	@Test public void rightContentJsonMapping() throws JsonParseException, JsonMappingException, IOException, URISyntaxException{
@@ -78,7 +68,7 @@ public class ParserTest {
 	}
 	
 	
-	@Test
+	/*@Test
 	public void validMethodExecution() throws Exception{
 		
 		PNMLConfigurationReader configReader = new PNMLConfigurationReader();
@@ -111,7 +101,7 @@ public class ParserTest {
 			}
 		}
 		
-	}
+	}*/
 	
 	
 	

@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.nio.file.FileSystemException;
 
 import com.lac.activities.DLContents.DLContent;
-import com.lac.interpreter.ChimpDLImpl;
-import com.lac.parsers.FunctionalParser;
+import com.lac.interpreter.ChimpDLFile;
+import com.lac.parsers.JsonParser;
 import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.ui.mainscreens.LoadSessionPanel;
 import com.lac.userentry.ConfigurationEntryHolder;
@@ -33,10 +33,10 @@ public class LoadSessionHome extends Home<LoadSessionPanel>{
 	}
 
 	public void loadSession() throws PetriNetException{
-		FunctionalParser parser = new FunctionalParser(ConfigurationEntryHolder.getInstance().getPetriNet());
+		JsonParser parser = new JsonParser();
 		DLContent dlContent ;
 		try {
-			dlContent = parser.getObjectsDescription((new ChimpDLImpl()).getDescription(baseComponent.getPathTextField().getText() ));
+			dlContent = parser.getObjectsDescription((new ChimpDLFile()).getDescription(baseComponent.getPathTextField().getText() ));
 		} catch (PetriNetException | IOException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}

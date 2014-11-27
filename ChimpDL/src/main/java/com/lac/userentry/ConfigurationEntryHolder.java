@@ -9,7 +9,7 @@ import java.util.Set;
 import com.lac.activities.DLContents.ActivityContent;
 import com.lac.activities.DLContents.DLContent;
 import com.lac.activities.DLContents.TasksContent;
-import com.lac.interpreter.ChimpDLImpl;
+import com.lac.interpreter.ChimpDLFile;
 import com.lac.interpreter.Interpreter;
 import com.lac.petrinet.core.PetriNet;
 import com.lac.petrinet.exceptions.PetriNetException;
@@ -79,7 +79,7 @@ public class ConfigurationEntryHolder extends Observable{
 		task.setName(name);
 		task.setOutputTransitionName(outputTransitionName);
 		dlContent.addTask(task);
-		ChimpDLImpl chimpDl = new ChimpDLImpl();
+		ChimpDLFile chimpDl = new ChimpDLFile();
 		try {
 			chimpDl.saveConfiguration(getJarpath(), dlContent);
 		} catch (URISyntaxException e) {

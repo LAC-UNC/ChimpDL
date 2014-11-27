@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.lac.activities.DLContents.ResourcesContent;
-import com.lac.interpreter.ChimpDLImpl;
+import com.lac.interpreter.ChimpDLFile;
 import com.lac.interpreter.Interpreter;
 import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.ui.mainscreens.ResourcesManagementPanel;
@@ -40,7 +40,7 @@ public class ResourcesManagementHome extends Home<ResourcesManagementPanel>{
 		}
 		ConfigurationEntryHolder.getInstance().getDlContent().setResources(resourceList);
 		try {
-			(new ChimpDLImpl()).saveConfiguration(Interpreter.getJarpath(), ConfigurationEntryHolder.getInstance().getDlContent());
+			(new ChimpDLFile()).saveConfiguration(Interpreter.getJarpath(), ConfigurationEntryHolder.getInstance().getDlContent());
 		} catch (URISyntaxException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}

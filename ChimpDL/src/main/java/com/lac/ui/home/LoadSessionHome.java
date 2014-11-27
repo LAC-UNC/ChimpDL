@@ -36,7 +36,7 @@ public class LoadSessionHome extends Home<LoadSessionPanel>{
 		JsonParser parser = new JsonParser();
 		DLContent dlContent ;
 		try {
-			dlContent = parser.getObjectsDescription((new ChimpDLFile()).getDescription(baseComponent.getPathTextField().getText() ));
+			dlContent = parser.parse((new ChimpDLFile()).getDescription(baseComponent.getPathTextField().getText() ));
 		} catch (PetriNetException | IOException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}

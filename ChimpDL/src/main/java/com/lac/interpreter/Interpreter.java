@@ -85,7 +85,7 @@ public class Interpreter {
 		return petriNet;
 	}
 	
-	public void start(String ConfigFileLocation, boolean isDefaultName) throws PetriNetException{
+	public void start(String ConfigFileLocation, boolean isDefaultName) throws PetriNetException {
 		JsonParser parser = new JsonParser();
 
 		try {
@@ -93,7 +93,7 @@ public class Interpreter {
 				objectDescription = parser.parse((new ChimpDLFile()).getDescription(ConfigFileLocation + "./configuration.conf"));
 			else
 				objectDescription = parser.parse((new ChimpDLFile()).getDescription(ConfigFileLocation ));
-		} catch (PetriNetException e) {
+		} catch (Exception e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}
 		

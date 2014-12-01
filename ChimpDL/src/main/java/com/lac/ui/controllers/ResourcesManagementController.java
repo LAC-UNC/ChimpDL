@@ -1,4 +1,4 @@
-package com.lac.ui.home;
+package com.lac.ui.controllers;
 
 import java.awt.Component;
 import java.net.URISyntaxException;
@@ -8,17 +8,17 @@ import java.util.List;
 import com.lac.activities.DLContents.ResourcesContent;
 import com.lac.interpreter.ChimpDLFile;
 import com.lac.interpreter.Interpreter;
+import com.lac.model.Model;
 import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.ui.mainscreens.ResourcesManagementPanel;
 import com.lac.ui.resources.ResourceInstancePanel;
-import com.lac.userentry.ConfigurationEntryHolder;
 
-public class ResourcesManagementHome extends Home<ResourcesManagementPanel>{
+public class ResourcesManagementController extends ActionablePanelController<ResourcesManagementPanel>{
 	
 	
-	public void fowardRender(){
+	public void renderAction(){
 		baseComponent.removeResources();
-		for( ResourcesContent resource : ConfigurationEntryHolder.getInstance().getDlContent().getResources()){
+		for( ResourcesContent resource : Model.getInstance().getDlContent().getResources()){
 			ResourceInstancePanel resourcePanel = new ResourceInstancePanel();
 			resourcePanel.setResource(resource.getClassName());
 			resourcePanel.setInstaceName(resource.getImplementationName());
@@ -38,15 +38,11 @@ public class ResourcesManagementHome extends Home<ResourcesManagementPanel>{
 		for(ResourceInstancePanel instancePanel : baseComponent.getInstancePanelList()){
 			resourceList.add(instancePanel.getInstanceInfo());
 		}
-		ConfigurationEntryHolder.getInstance().getDlContent().setResources(resourceList);
+		Model.getInstance().getDlContent().setResources(resourceList);
 		try {
-			(new ChimpDLFile()).saveConfiguration(Interpreter.getJarpath(), ConfigurationEntryHolder.getInstance().getDlContent());
+			(new ChimpDLFile()).saveConfiguration(Interpreter.getJarpath(), Model.getInstance().getDlContent());
 		} catch (URISyntaxException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}
-	}
-	
-	public void backAction()throws PetriNetException{
-		return;
 	}
 }

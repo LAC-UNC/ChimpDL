@@ -13,15 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-import com.lac.ui.home.PnmlSelectionHome;
+import com.lac.ui.controllers.PnmlSelectionController;
 
-public class PnmlSelectionPanel extends ControlledJPanel<PnmlSelectionHome> {
-	
-	public PnmlSelectionPanel(PnmlSelectionHome homeController) {
+public class PnmlSelectionPanel extends ControlledJPanel<PnmlSelectionController> {
+	private static final long serialVersionUID = 1L;
+
+
+	public PnmlSelectionPanel(PnmlSelectionController homeController) {
 		super(homeController);
 	}
 
@@ -50,8 +48,6 @@ public class PnmlSelectionPanel extends ControlledJPanel<PnmlSelectionHome> {
 			throw new FileSystemException("cannot choose a file different from pnml type");
 		}
 		else{
-
-
 			return filesSelected;
 		}
 	}

@@ -16,14 +16,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.lac.ui.home.TaskAssociationHome;
-import com.lac.ui.home.TaskHome;
+import com.lac.ui.controllers.TaskAssociationController;
+import com.lac.ui.controllers.TaskController;
 import com.lac.ui.scrceens.tasks.TaskPanel;
 
 //TODO: support multiple input transitions for a given task.
-public class TaskAssociationPanel extends ControlledJPanel<TaskAssociationHome> {
+public class TaskAssociationPanel extends ControlledJPanel<TaskAssociationController> {
+	private static final long serialVersionUID = 1L;
 
-	public TaskAssociationPanel(TaskAssociationHome homeController) {
+	public TaskAssociationPanel(TaskAssociationController homeController) {
 		super(homeController);
 	}
 
@@ -77,7 +78,7 @@ public class TaskAssociationPanel extends ControlledJPanel<TaskAssociationHome> 
 	}
 
 	public TaskPanel addNewTask(){
-		TaskHome taskHome = new TaskHome();
+		TaskController taskHome = new TaskController();
 		TaskPanel newTask = new TaskPanel(taskHome);
 		taskHome.setBaseComponent(newTask);
 		getTaskPanels().add(newTask);

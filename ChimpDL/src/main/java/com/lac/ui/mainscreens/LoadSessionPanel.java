@@ -15,12 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.lac.petrinet.exceptions.PetriNetException;
-import com.lac.ui.home.LoadSessionHome;
+import com.lac.ui.controllers.LoadSessionController;
 
-public class LoadSessionPanel extends ControlledJPanel<LoadSessionHome> {
-	
-	
-	public LoadSessionPanel(LoadSessionHome homeController) {
+public class LoadSessionPanel extends ControlledJPanel<LoadSessionController> {
+	private static final long serialVersionUID = 1L;
+
+	public LoadSessionPanel(LoadSessionController homeController) {
 		super(homeController);
 	}
 
@@ -72,7 +72,7 @@ public class LoadSessionPanel extends ControlledJPanel<LoadSessionHome> {
 		});
 		seleccionPanel.add(btnNewButton);
 		
-		JButton btnLoadStart = new JButton("Load & start");
+		JButton btnLoadStart = new JButton("Load");
 		btnLoadStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

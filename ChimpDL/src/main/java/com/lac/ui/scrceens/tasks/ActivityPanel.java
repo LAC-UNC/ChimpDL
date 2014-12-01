@@ -18,11 +18,12 @@ import javax.swing.border.EtchedBorder;
 
 import com.lac.activities.DLContents.ActivityContent;
 import com.lac.activities.DLContents.ResourcesContent;
+import com.lac.model.Model;
 import com.lac.ui.mainscreens.ErrorDialog;
-import com.lac.userentry.ConfigurationEntryHolder;
 
 public class ActivityPanel extends JPanel {
-
+	private static final long serialVersionUID = 1L;
+	
 	JComboBox<String> resourcesComboBox;
 	JComboBox<String> methodComboBox;	
 	Set<String> instanceNamesSet = new HashSet<String>();
@@ -33,7 +34,7 @@ public class ActivityPanel extends JPanel {
 	 */
 	public ActivityPanel() {
 		initComponents();
-		addResources(ConfigurationEntryHolder.getInstance().getDlContent().getResources());
+		addResources(Model.getInstance().getDlContent().getResources());
 	}
 	
 	private void initComponents(){

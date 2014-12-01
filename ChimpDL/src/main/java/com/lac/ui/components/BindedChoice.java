@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BindedChoice<k> extends Choice {
-	
+	private static final long serialVersionUID = 1L;
 	
 	List<k> choicesList;
 	

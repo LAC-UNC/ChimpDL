@@ -1,4 +1,4 @@
-package com.lac.ui.home;
+package com.lac.ui.controllers;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
@@ -8,29 +8,12 @@ import java.nio.file.FileSystemException;
 
 import com.lac.activities.DLContents.DLContent;
 import com.lac.interpreter.ChimpDLFile;
+import com.lac.model.Model;
 import com.lac.parsers.JsonParser;
 import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.ui.mainscreens.LoadSessionPanel;
-import com.lac.userentry.ConfigurationEntryHolder;
 
-public class LoadSessionHome extends Home<LoadSessionPanel>{
-
-	@Override
-	public void nextAction() throws PetriNetException {
-		//probably at some point would be desirable to have the load session the next button. 
-		// in that case, that functionality should be placed here. 
-		return;
-	}
-
-	@Override
-	public void fowardRender() {
-		return;
-	}
-
-	@Override
-	public void backAction() throws PetriNetException {
-		return;
-	}
+public class LoadSessionController extends ActionablePanelController<LoadSessionPanel>{
 
 	public void loadSession() throws PetriNetException{
 		JsonParser parser = new JsonParser();
@@ -40,7 +23,7 @@ public class LoadSessionHome extends Home<LoadSessionPanel>{
 		} catch (PetriNetException | IOException e) {
 			throw new PetriNetException(e.getMessage(),e);
 		}
-		ConfigurationEntryHolder.getInstance().setDlContent(dlContent);
+		Model.getInstance().setDlContent(dlContent);
 		
 	}
 	

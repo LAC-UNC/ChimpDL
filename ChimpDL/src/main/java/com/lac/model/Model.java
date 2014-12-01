@@ -1,30 +1,27 @@
-package com.lac.userentry;
+package com.lac.model;
 
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Observable;
 import java.util.Set;
 
 import com.lac.activities.DLContents.ActivityContent;
 import com.lac.activities.DLContents.DLContent;
 import com.lac.activities.DLContents.TasksContent;
 import com.lac.interpreter.ChimpDLFile;
-import com.lac.interpreter.Interpreter;
 import com.lac.petrinet.core.PetriNet;
 import com.lac.petrinet.exceptions.PetriNetException;
 
 //TODO: check concurrency in this class.
-public class ConfigurationEntryHolder extends Observable{
+public class Model {
 
-	private static ConfigurationEntryHolder INSTANCE = null;
+	private static Model INSTANCE = null;
 
 	private PetriNet petriNet;
 	private DLContent dlContent ;
-	private Interpreter interpreter;
 
 	// Private constructor suppresses 
-	private ConfigurationEntryHolder(){
+	private Model(){
 		dlContent = new DLContent();
 	}
 
@@ -32,30 +29,24 @@ public class ConfigurationEntryHolder extends Observable{
 		if (INSTANCE == null) {
 			// Solo se accede a la zona sincronizada
 			// cuando la instancia no esta creada
-			synchronized(ConfigurationEntryHolder.class) {
+			synchronized(Model.class) {
 				// En la zona sincronizada seria necesario volver
 				// a comprobar que no se ha creado la instancia
 				if (INSTANCE == null) { 
-					INSTANCE = new ConfigurationEntryHolder();
+					INSTANCE = new Model();
 				}
 			}
 		}
 	}
 
-	public static ConfigurationEntryHolder getInstance() {
+	public static Model getInstance() {
 		if (INSTANCE == null) createInstance();
 		return INSTANCE;
 	}
-
-	public Object clone() throws CloneNotSupportedException {
-		throw new CloneNotSupportedException(); 
-	}
-	
 	
 	// Methods for manage the configuration. 
 	public void setPetriNet(PetriNet petriNet){
 		this.petriNet = petriNet;
-		notifyObservers();
 	}
 	
 //	public void addResourceInstance(String name, ResourceInstances resource){
@@ -109,26 +100,16 @@ public class ConfigurationEntryHolder extends Observable{
 		this.dlContent = dlContent;
 	}
 
-	public Interpreter getInterpreter() {
-		return interpreter;
-	}
-
-	public void setInterpreter(Interpreter interpreter) {
-		this.interpreter = interpreter;
-	}
-
 	public void emptyTask(){
 		dlContent.emptyTask();
 	}
 	
 	private String getJarpath() throws URISyntaxException {
 		String uri;
-		uri = ConfigurationEntryHolder.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+		uri = Model.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 		while(uri.contains(".jar")){
 			uri = uri.substring(0,  uri.lastIndexOf("/"));
 		}
 		return uri;
 	}
-
-
 }

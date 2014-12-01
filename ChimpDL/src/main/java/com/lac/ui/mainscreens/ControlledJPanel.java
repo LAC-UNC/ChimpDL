@@ -4,9 +4,10 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
-import com.lac.ui.home.Home;
+import com.lac.ui.controllers.ActionablePanelController;
 
-public abstract  class ControlledJPanel<K extends Home<?>> extends JPanel {
+public abstract class ControlledJPanel<K extends ActionablePanelController<?>> extends JPanel {
+	private static final long serialVersionUID = 1L;
 	
 	protected K homeController;
 

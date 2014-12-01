@@ -11,6 +11,8 @@ import com.lac.activities.DLContents.ResourcesContent;
 import com.lac.annotations.ResourcesFinder;
 
 public class ResourceInstancePanel extends JPanel {
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField instanceNameText;
 	private JComboBox<String> resourceComboBox;
 

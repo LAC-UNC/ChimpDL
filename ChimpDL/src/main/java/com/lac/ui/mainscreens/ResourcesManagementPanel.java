@@ -13,13 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.lac.ui.home.ResourcesManagementHome;
+import com.lac.ui.controllers.ResourcesManagementController;
 import com.lac.ui.resources.ResourceInstancePanel;
 
-public class ResourcesManagementPanel extends ControlledJPanel<ResourcesManagementHome> {
+public class ResourcesManagementPanel extends ControlledJPanel<ResourcesManagementController> {
 
-	
-	public ResourcesManagementPanel(ResourcesManagementHome homeController) {
+	private static final long serialVersionUID = 1L;
+
+	public ResourcesManagementPanel(ResourcesManagementController homeController) {
 		super(homeController);
 	}
 

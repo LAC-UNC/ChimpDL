@@ -1,48 +1,35 @@
-package com.lac.ui.home;
+package com.lac.ui.controllers;
 
 import java.net.URISyntaxException;
 
 import com.lac.interpreter.ChimpDL;
 import com.lac.interpreter.ChimpDLFile;
 import com.lac.interpreter.Interpreter;
+import com.lac.model.Model;
 import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.ui.mainscreens.ErrorDialog;
 import com.lac.ui.mainscreens.SaveConfigPanel;
-import com.lac.userentry.ConfigurationEntryHolder;
 
-public class SaveConfigHome extends Home<SaveConfigPanel> {
+public class SaveConfigController extends ActionablePanelController<SaveConfigPanel> {
 
-	@Override
-	public void nextAction() throws PetriNetException {
-		return;
-	}
-
-	@Override
-	public void fowardRender() {
-		return;
-	}
-
-	@Override
-	public void backAction() throws PetriNetException {
-		return;
+	private Interpreter interpreter;
+	
+	public SaveConfigController(Interpreter intr) {
+		this.interpreter = intr;		
 	}
 	
 	public void saveAndStartAction(){
-		
-		Interpreter interpreter = ConfigurationEntryHolder.getInstance().getInterpreter();
-		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
+		Model config = Model.getInstance();
 		ChimpDL contentManager = new ChimpDLFile() ;
 		String path;
 		try {
 			path = Interpreter.getJarpath();
 			contentManager.saveConfiguration(path, config.getDlContent());
-			interpreter.start(path, true);
+			this.interpreter.start(path, true);
 		} catch (PetriNetException | URISyntaxException e) {
 			new ErrorDialog(e);
 			return;
 		}
 		
 	}
-	
-
 }

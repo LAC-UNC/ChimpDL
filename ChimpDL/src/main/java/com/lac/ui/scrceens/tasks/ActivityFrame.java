@@ -18,7 +18,8 @@ import javax.swing.border.EmptyBorder;
 import com.lac.activities.DLContents.ActivityContent;
 
 public class ActivityFrame extends JFrame {
-
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel contentPane;
 	private List<ActivityPanel> activities = new ArrayList<ActivityPanel>(); 
 	private JScrollPane scrollPane;

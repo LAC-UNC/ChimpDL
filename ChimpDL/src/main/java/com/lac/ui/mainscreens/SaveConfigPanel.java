@@ -5,11 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import com.lac.ui.home.SaveConfigHome;
+import com.lac.ui.controllers.SaveConfigController;
 
-public class SaveConfigPanel extends ControlledJPanel<SaveConfigHome> {
+public class SaveConfigPanel extends ControlledJPanel<SaveConfigController> {
+	private static final long serialVersionUID = 1L;
 
-	public SaveConfigPanel(SaveConfigHome homeController) {
+	public SaveConfigPanel(SaveConfigController homeController) {
 		super(homeController);
 	}
 

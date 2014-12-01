@@ -14,13 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.lac.activities.DLContents.TasksContent;
-import com.lac.ui.home.TaskHome;
+import com.lac.model.Model;
+import com.lac.ui.controllers.TaskController;
 import com.lac.ui.mainscreens.ControlledJPanel;
-import com.lac.userentry.ConfigurationEntryHolder;
 
-public class TaskPanel extends ControlledJPanel<TaskHome> {
+public class TaskPanel extends ControlledJPanel<TaskController> {
+	private static final long serialVersionUID = 1L;
 
-	public TaskPanel(TaskHome homeController) {
+	public TaskPanel(TaskController homeController) {
 		super(homeController);
 	}
 
@@ -48,7 +49,7 @@ public class TaskPanel extends ControlledJPanel<TaskHome> {
 	
 	@Override
 	protected void initComponents() {
-		ConfigurationEntryHolder config = ConfigurationEntryHolder.getInstance();
+		Model config = Model.getInstance();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		Content = new JPanel();
 		add(Content);
@@ -138,7 +139,7 @@ public class TaskPanel extends ControlledJPanel<TaskHome> {
 	public void setTaskNameTextField(JTextField taskNameTextField) {
 		this.taskNameTextField = taskNameTextField;
 	}
-	public TaskHome getHome(){
+	public TaskController getHome(){
 		return homeController;
 	}
 	

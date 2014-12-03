@@ -8,6 +8,7 @@ import com.lac.interpreter.Interpreter;
 import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.ui.mainscreens.LoadSessionPanel;
 import com.lac.ui.mainscreens.MainFrame;
+import com.lac.ui.mainscreens.ObserverAssignmentPanel;
 import com.lac.ui.mainscreens.PnmlSelectionPanel;
 import com.lac.ui.mainscreens.ResourcesManagementPanel;
 import com.lac.ui.mainscreens.SaveConfigPanel;
@@ -28,18 +29,21 @@ public class MainFrameController {
 
 		// initialization of panels 
 		PnmlSelectionController pnmlSelectionController = new PnmlSelectionController(interpreter);
+		ObserverAssociationController observerAssocController = new ObserverAssociationController();
 		LoadSessionController loadSessionController = new LoadSessionController();
 		ResourcesManagementController resourcesController = new ResourcesManagementController();
 		TaskAssociationController taskAssociationController = new TaskAssociationController();
 		SaveConfigController saveConfigController = new SaveConfigController(interpreter);
 		
 		PnmlSelectionPanel pnmlPanel = new PnmlSelectionPanel(pnmlSelectionController);
+		ObserverAssignmentPanel observerAssocPanel = new ObserverAssignmentPanel(observerAssocController);
 		LoadSessionPanel sessionPanel = new LoadSessionPanel(loadSessionController); 
 		ResourcesManagementPanel resourcePanel = new ResourcesManagementPanel(resourcesController);
 		TaskAssociationPanel taskAssocPanel = new TaskAssociationPanel(taskAssociationController);
 		SaveConfigPanel saveConfigPanel = new SaveConfigPanel(saveConfigController);
 
 		pnmlSelectionController.setBaseComponent(pnmlPanel);
+		observerAssocController.setBaseComponent(observerAssocPanel);
 		loadSessionController.setBaseComponent(sessionPanel);
 		resourcesController.setBaseComponent(resourcePanel);
 		taskAssociationController.setBaseComponent(taskAssocPanel);
@@ -50,6 +54,7 @@ public class MainFrameController {
 		controllers = new ArrayList<ActionablePanelController>();
 		
 		controllers.add(pnmlSelectionController);
+		controllers.add(observerAssocController);
 		controllers.add(loadSessionController);
 		controllers.add(resourcesController);
 		controllers.add(taskAssociationController);

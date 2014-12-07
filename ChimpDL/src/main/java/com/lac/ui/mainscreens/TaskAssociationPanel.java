@@ -52,28 +52,28 @@ public class TaskAssociationPanel extends ControlledJPanel<TaskAssociationContro
 
 		bodyPanel = new JPanel();
 		bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
-
-		JButton btnNewTask = new JButton("new Task");
-		btnNewTask.setAlignmentY(Component.TOP_ALIGNMENT);
-		btnNewTask.setAlignmentX(Component.CENTER_ALIGNMENT);
-		bodyPanel.add(btnNewTask);
 		bodyPanel.setAutoscrolls(true);
 
 		JPanel buttonPanel = new JPanel();
 		add(buttonPanel, BorderLayout.SOUTH);
+		
+				JButton btnNewTask = new JButton("new Task");
+				buttonPanel.add(btnNewTask);
+				btnNewTask.setAlignmentY(Component.TOP_ALIGNMENT);
+				btnNewTask.setAlignmentX(Component.CENTER_ALIGNMENT);
+				//		add(bodyPanel, BorderLayout.CENTER);
+
+				btnNewTask.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						addNewTask();
+					}
+				});
 
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		scrollPane.setViewportView(bodyPanel);
 		scrollPane.setBorder(null);
 		scrollPane.setViewportBorder(null);
-		//		add(bodyPanel, BorderLayout.CENTER);
-
-		btnNewTask.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addNewTask();
-			}
-		});
 
 	}
 

@@ -19,7 +19,7 @@ public class ObserverConfigurationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel contentPane;
-	private List<ObserverConfigurationPanel> activities = new ArrayList<ObserverConfigurationPanel>(); 
+	private List<ObserverTransitionSelector> informedTransitions = new ArrayList<ObserverTransitionSelector>(); 
 	private JScrollPane scrollPane;
 
 	/**
@@ -57,7 +57,7 @@ public class ObserverConfigurationFrame extends JFrame {
 		JButton btnAddTransition = new JButton("add transition");
 		btnAddTransition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addNewObserverPanel();
+				addNewTransitionSelectionPanel();
 			}
 		});
 		btnAddTransition.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -70,25 +70,32 @@ public class ObserverConfigurationFrame extends JFrame {
 		setContentPane(scrollPane);
 	}
 	
-	private void addNewObserverPanel(){
-		ObserverConfigurationPanel actPanel = new ObserverConfigurationPanel();
-		activities.add(actPanel);
-		actPanel.setAlignmentY(Component.TOP_ALIGNMENT);
-		actPanel.setSize(actPanel.getWidth(), 16);
-		contentPane.add(actPanel);
+	private ObserverTransitionSelector addNewTransitionSelectionPanel(){
+		ObserverTransitionSelector obsPanel = new ObserverTransitionSelector();
+		informedTransitions.add(obsPanel);
+		obsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		obsPanel.setSize(obsPanel.getWidth(), 16);
+		contentPane.add(obsPanel);
 		revalidate();
 		repaint();
 		contentPane.revalidate();
 		contentPane.revalidate();
+		
+		return obsPanel;
 	}
 
-	// TODO: probably this should be move to a home functionality. 
-	/*public List<ActivityContent> getActivities(){
-		List<ActivityContent> activityList = new ArrayList<ActivityContent>();
-		for(ObserverPanel panel : activities){
-			activityList.add(panel.getActivity());
+	public ArrayList<String> getObservedInformedTransitions() {
+		ArrayList<String> its = new ArrayList<String>();
+		
+		for(ObserverTransitionSelector panel : informedTransitions){
+			its.add(panel.getSelectedTransition());
 		}
-		return activityList;
-	}*/
+		return its;
+	}
 
+	public void setObservedInformedTransitions(List<String> list) {
+		for(String it : list){
+			addNewTransitionSelectionPanel().setSelected(it);
+		}
+	}
 }

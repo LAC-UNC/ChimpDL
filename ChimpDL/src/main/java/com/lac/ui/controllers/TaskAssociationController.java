@@ -9,6 +9,11 @@ import com.lac.ui.scrceens.tasks.TaskPanel;
 public class TaskAssociationController extends ActionablePanelController<TaskAssociationPanel> {
 
 	@Override
+	public void nextAction() throws PetriNetException {
+		saveAction();	
+	}
+	
+	@Override
 	public void renderAction() throws PetriNetException {
 		baseComponent.getBodyPanel().removeAll();
 		baseComponent.getTaskPanels().clear();

@@ -7,8 +7,8 @@ import java.util.Set;
 
 import com.lac.activities.DLContents.ActivityContent;
 import com.lac.activities.DLContents.DLContent;
+import com.lac.activities.DLContents.ObserverContent;
 import com.lac.activities.DLContents.TasksContent;
-import com.lac.interpreter.ChimpDLFile;
 import com.lac.petrinet.core.PetriNet;
 import com.lac.petrinet.exceptions.PetriNetException;
 
@@ -70,12 +70,24 @@ public class Model {
 		task.setName(name);
 		task.setOutputTransitionName(outputTransitionName);
 		dlContent.addTask(task);
-		ChimpDLFile chimpDl = new ChimpDLFile();
+		/*ChimpDLFile chimpDl = new ChimpDLFile();
 		try {
 			chimpDl.saveConfiguration(getJarpath(), dlContent);
 		} catch (URISyntaxException e) {
 			throw new PetriNetException(e.getMessage(),e);
-		}
+		}*/
+	}
+	
+	public void addObserver( List<String> informedTransitions) throws PetriNetException{
+		ObserverContent observer = new ObserverContent();
+		observer.setInformedTransitions(informedTransitions);
+		dlContent.addObserver(observer);
+		/*ChimpDLFile chimpDl = new ChimpDLFile();
+		try {
+			chimpDl.saveConfiguration(getJarpath(), dlContent);
+		} catch (URISyntaxException e) {
+			throw new PetriNetException(e.getMessage(),e);
+		}*/
 	}
 	
 	public Set<String> getInformedTransitions(){
@@ -101,7 +113,11 @@ public class Model {
 	}
 
 	public void emptyTask(){
-		dlContent.emptyTask();
+		dlContent.emptyTasks();
+	}
+	
+	public void emptyObservers(){
+		dlContent.emptyObservers();
 	}
 	
 	private String getJarpath() throws URISyntaxException {

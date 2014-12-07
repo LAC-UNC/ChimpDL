@@ -54,8 +54,8 @@ public class MainFrameController {
 		controllers = new ArrayList<ActionablePanelController>();
 		
 		controllers.add(pnmlSelectionController);
-		controllers.add(observerAssocController);
 		controllers.add(loadSessionController);
+		controllers.add(observerAssocController);
 		controllers.add(resourcesController);
 		controllers.add(taskAssociationController);
 		controllers.add(saveConfigController);

@@ -50,28 +50,28 @@ public class ObserverAssignmentPanel extends ControlledJPanel<ObserverAssociatio
 
 		bodyPanel = new JPanel();
 		bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
-
-		JButton btnNewObserver = new JButton("New observer");
-		btnNewObserver.setAlignmentY(Component.TOP_ALIGNMENT);
-		btnNewObserver.setAlignmentX(Component.CENTER_ALIGNMENT);
-		bodyPanel.add(btnNewObserver);
 		bodyPanel.setAutoscrolls(true);
 
 		JPanel buttonPanel = new JPanel();
 		add(buttonPanel, BorderLayout.SOUTH);
+		
+				JButton btnNewObserver = new JButton("New observer");
+				buttonPanel.add(btnNewObserver);
+				btnNewObserver.setAlignmentY(Component.TOP_ALIGNMENT);
+				btnNewObserver.setAlignmentX(Component.CENTER_ALIGNMENT);
+				//		add(bodyPanel, BorderLayout.CENTER);
+
+				btnNewObserver.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						addNewObserver();
+					}
+				});
 
 		JScrollPane scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		scrollPane.setViewportView(bodyPanel);
 		scrollPane.setBorder(null);
 		scrollPane.setViewportBorder(null);
-		//		add(bodyPanel, BorderLayout.CENTER);
-
-		btnNewObserver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addNewObserver();
-			}
-		});
 
 	}
 

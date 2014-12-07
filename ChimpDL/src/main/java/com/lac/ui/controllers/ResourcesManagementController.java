@@ -39,10 +39,10 @@ public class ResourcesManagementController extends ActionablePanelController<Res
 			resourceList.add(instancePanel.getInstanceInfo());
 		}
 		Model.getInstance().getDlContent().setResources(resourceList);
-		try {
+		/*try {
 			(new ChimpDLFile()).saveConfiguration(Interpreter.getJarpath(), Model.getInstance().getDlContent());
 		} catch (URISyntaxException e) {
 			throw new PetriNetException(e.getMessage(),e);
-		}
+		}*/
 	}
 }

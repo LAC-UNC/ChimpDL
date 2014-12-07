@@ -10,10 +10,12 @@ import java.util.List;
 public class DLContent {
 	private List<ResourcesContent> resources;
 	private List<TasksContent> tasks;
+	private List<ObserverContent> observers;
 	
 	public DLContent(){
 		resources = new ArrayList<ResourcesContent>();
 		tasks = new ArrayList<TasksContent>();
+		observers = new ArrayList<ObserverContent>();
 	}
 	
 	public List<ResourcesContent> getResources() {
@@ -32,6 +34,13 @@ public class DLContent {
 		this.tasks = tasks;
 	}
 	
+	public List<ObserverContent> getObservers() {
+		return observers;
+	}
+
+	public void setObservers(ArrayList<ObserverContent> observers) {
+		this.observers = observers;
+	}
 	public void addResource(String InstanceName, String clazz){
 		ResourcesContent resource = new ResourcesContent();
 		resource.setImplementationName(InstanceName);
@@ -44,12 +53,23 @@ public class DLContent {
 	
 	public void addTask(TasksContent task){
 		if(tasks == null){
-			tasks = new ArrayList<TasksContent>();
+			emptyTasks();
 		}
 		tasks.add(task);
 	}
 	
-	public void emptyTask(){
+	public void emptyTasks(){
 		tasks = new ArrayList<TasksContent>();
+	}
+	
+	public void addObserver(ObserverContent observer){
+		if(observers == null){
+			emptyObservers();
+		}
+		observers.add(observer);
+	}
+	
+	public void emptyObservers(){
+		observers = new ArrayList<ObserverContent>();
 	}
 }

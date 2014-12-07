@@ -9,11 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 import com.lac.model.Model;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ObserverTransitionSelector extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	JComboBox<String> informedTransitionsComboBox;
+	ObserverConfigurationFrame parentFrame;
 	
 	/**
 	 * Create the panel.
@@ -22,6 +26,11 @@ public class ObserverTransitionSelector extends JPanel {
 		initComponents();
 	}
 	
+	public ObserverTransitionSelector(ObserverConfigurationFrame observerConfigurationFrame) {
+		this.parentFrame = observerConfigurationFrame;
+		initComponents();
+	}
+
 	private void initComponents(){
 		Model config = Model.getInstance();
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -34,6 +43,18 @@ public class ObserverTransitionSelector extends JPanel {
 		add(informedTransitionsComboBox);
 		this.setMaximumSize(new Dimension(999,25));
 		this.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		JButton btnDeleteTransition = new JButton("delete transition");
+		btnDeleteTransition.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteAction();
+			}
+		});
+		add(btnDeleteTransition);
+	}
+	
+	public void deleteAction() {
+		parentFrame.eraseTransitionSelector(this);
 	}
 	
 	public String getSelectedTransition() {

@@ -29,7 +29,7 @@ public class MainFrameController {
 
 		// initialization of panels 
 		PnmlSelectionController pnmlSelectionController = new PnmlSelectionController(interpreter);
-		ObserverAssociationController observerAssocController = new ObserverAssociationController();
+		ObserverAssignmentController observerAssocController = new ObserverAssignmentController();
 		LoadSessionController loadSessionController = new LoadSessionController();
 		ResourcesManagementController resourcesController = new ResourcesManagementController();
 		TaskAssociationController taskAssociationController = new TaskAssociationController();

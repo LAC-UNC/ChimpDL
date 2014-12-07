@@ -15,15 +15,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import com.lac.ui.controllers.ObserverAssociationController;
+import com.lac.ui.controllers.ObserverAssignmentController;
 import com.lac.ui.controllers.ObserverController;
 import com.lac.ui.scrceens.observers.ObserverPanel;
 
 //TODO: support multiple input transitions for a given task.
-public class ObserverAssignmentPanel extends ControlledJPanel<ObserverAssociationController> {
+public class ObserverAssignmentPanel extends ControlledJPanel<ObserverAssignmentController> {
 	private static final long serialVersionUID = 1L;
 
-	public ObserverAssignmentPanel(ObserverAssociationController homeController) {
+	public ObserverAssignmentPanel(ObserverAssignmentController homeController) {
 		super(homeController);
 	}
 
@@ -76,7 +76,7 @@ public class ObserverAssignmentPanel extends ControlledJPanel<ObserverAssociatio
 	}
 
 	public ObserverPanel addNewObserver(){
-		ObserverController observerHome = new ObserverController();
+		ObserverController observerHome = new ObserverController(this.getHomeController());
 		ObserverPanel newObserver = new ObserverPanel(observerHome);
 		observerHome.setBaseComponent(newObserver);
 		getObserverPanels().add(newObserver);
@@ -89,6 +89,13 @@ public class ObserverAssignmentPanel extends ControlledJPanel<ObserverAssociatio
 		revalidate();
 		repaint();
 		return newObserver;
+	}
+	
+	public void eraseObserverPanel(ObserverPanel toErase) {
+		getObserverPanels().remove(toErase);
+		getBodyPanel().remove(toErase);
+		revalidate();
+		repaint();
 	}
 	
 	public ArrayList<ObserverPanel> getObserverPanels() {

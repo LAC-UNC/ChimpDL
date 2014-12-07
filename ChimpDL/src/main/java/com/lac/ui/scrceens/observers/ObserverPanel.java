@@ -49,7 +49,6 @@ public class ObserverPanel extends ControlledJPanel<ObserverController> {
 		
 		/* New Activity Button */
 		JButton NewObserverButton = new JButton("Set observer transitions");
-		observerPanel.add(NewObserverButton);
 		NewObserverButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(obsFrame == null){
@@ -58,7 +57,16 @@ public class ObserverPanel extends ControlledJPanel<ObserverController> {
 				
 				configurateOberver();
 			}
-		});		
+		});	
+		observerPanel.add(NewObserverButton);
+		
+		JButton btnDeleteObserver = new JButton("Delete observer");
+		btnDeleteObserver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				homeController.deleteThisObserver();
+			}
+		});
+		observerPanel.add(btnDeleteObserver);	
 	}
 
 	public ObserverConfigurationFrame getObserverConfigurationFrame() {

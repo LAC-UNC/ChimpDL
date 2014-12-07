@@ -8,7 +8,7 @@ import com.lac.petrinet.exceptions.PetriNetException;
 import com.lac.ui.mainscreens.ObserverAssignmentPanel;
 import com.lac.ui.scrceens.observers.ObserverPanel;
 
-public class ObserverAssociationController extends ActionablePanelController<ObserverAssignmentPanel> {
+public class ObserverAssignmentController extends ActionablePanelController<ObserverAssignmentPanel> {
 
 	@Override
 	public void renderAction() throws PetriNetException {
@@ -40,5 +40,9 @@ public class ObserverAssociationController extends ActionablePanelController<Obs
 		for(ObserverPanel panel : baseComponent.getObserverPanels()){
 			panel.getController().save();
 		}
+	}
+
+	public void erase(ObserverPanel toErase) {
+		baseComponent.eraseObserverPanel(toErase);		
 	}
 }

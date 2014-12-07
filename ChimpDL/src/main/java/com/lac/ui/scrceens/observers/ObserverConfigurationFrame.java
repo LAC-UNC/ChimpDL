@@ -71,7 +71,7 @@ public class ObserverConfigurationFrame extends JFrame {
 	}
 	
 	private ObserverTransitionSelector addNewTransitionSelectionPanel(){
-		ObserverTransitionSelector obsPanel = new ObserverTransitionSelector();
+		ObserverTransitionSelector obsPanel = new ObserverTransitionSelector(this);
 		informedTransitions.add(obsPanel);
 		obsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		obsPanel.setSize(obsPanel.getWidth(), 16);
@@ -97,5 +97,14 @@ public class ObserverConfigurationFrame extends JFrame {
 		for(String it : list){
 			addNewTransitionSelectionPanel().setSelected(it);
 		}
+	}
+
+	public void eraseTransitionSelector(ObserverTransitionSelector toErase) {
+		informedTransitions.remove(toErase);
+		contentPane.remove(toErase);
+		revalidate();
+		repaint();
+		contentPane.revalidate();
+		contentPane.revalidate();
 	}
 }

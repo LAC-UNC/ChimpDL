@@ -6,7 +6,7 @@
 				{"inputTransitionName" : ["T1"] , 
 				 "outputTransitionName" : "T2", 
 				 "activities" : [{"obj" : "implName0" , "method" :  "method0" } , {"obj" : "implName5" , "method" : "method1"} ],
-				 "name" : "tarea0"
+				 "THISISWRONG" : "tarea0"
 				 },
 				{"inputTransitionName" : ["T3"] ,
 				 "outputTransitionName" : "T4",

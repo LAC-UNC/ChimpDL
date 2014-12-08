@@ -31,6 +31,7 @@ public class TaskPanel extends ControlledJPanel<TaskController> {
 	private JComboBox<String> transitionInputComboBox;
 	private JComboBox<String> transitionOutputComboBox;
 	private JTextField taskNameTextField;
+	private JButton btnDeleteTask;
 	
 	private void editActivities(){
 		actFrame.setVisible(true);
@@ -91,7 +92,7 @@ public class TaskPanel extends ControlledJPanel<TaskController> {
 		taskNameTextField.setColumns(12);
 		
 		/* New Activity Button */
-		JButton NewActivityButton = new JButton("edit Activities");
+		JButton NewActivityButton = new JButton("Edit activities");
 		taskPanel.add(NewActivityButton);
 		NewActivityButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,7 +103,15 @@ public class TaskPanel extends ControlledJPanel<TaskController> {
 				
 				editActivities();
 			}
-		});		
+		});	
+		
+		btnDeleteTask = new JButton("Delete task");
+		btnDeleteTask.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				homeController.deleteThisTask();
+			}
+		});
+		taskPanel.add(btnDeleteTask);	
 	}
 
 	public ActivityFrame getActFrame() {

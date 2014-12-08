@@ -73,7 +73,7 @@ public class ActivityFrame extends JFrame {
 	}
 	
 	private void addNewActivityPanel(){
-		ActivityPanel actPanel = new ActivityPanel();
+		ActivityPanel actPanel = new ActivityPanel(this);
 		activities.add(actPanel);
 		actPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		actPanel.setSize(actPanel.getWidth(), 16);
@@ -98,6 +98,15 @@ public class ActivityFrame extends JFrame {
 			activityList.add(panel.getActivity());
 		}
 		return activityList;
+	}
+	
+	public void eraseActivity(ActivityPanel toErase) {
+		activities.remove(toErase);
+		contentPane.remove(toErase);
+		revalidate();
+		repaint();
+		contentPane.revalidate();
+		contentPane.revalidate();
 	}
 
 }

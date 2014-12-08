@@ -78,7 +78,7 @@ public class TaskAssociationPanel extends ControlledJPanel<TaskAssociationContro
 	}
 
 	public TaskPanel addNewTask(){
-		TaskController taskHome = new TaskController();
+		TaskController taskHome = new TaskController(this.getHomeController());
 		TaskPanel newTask = new TaskPanel(taskHome);
 		taskHome.setBaseComponent(newTask);
 		getTaskPanels().add(newTask);
@@ -93,6 +93,13 @@ public class TaskAssociationPanel extends ControlledJPanel<TaskAssociationContro
 		return newTask;
 	}
 
+	public void eraseObserverPanel(TaskPanel toErase) {
+		getTaskPanels().remove(toErase);
+		getBodyPanel().remove(toErase);
+		revalidate();
+		repaint();
+	}
+	
 	public List<TaskPanel> getTaskPanels() {
 		return taskPanels;
 	}

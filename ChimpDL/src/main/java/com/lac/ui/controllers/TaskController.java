@@ -13,6 +13,14 @@ import com.lac.ui.scrceens.tasks.ActivityPanel;
 import com.lac.ui.scrceens.tasks.TaskPanel;
 
 public class TaskController extends ActionablePanelController<TaskPanel> {
+	
+	private TaskAssociationController parentController;
+	
+	public TaskController(TaskAssociationController parentController) {
+		super();
+		
+		this.parentController = parentController;
+	}
 
 	//TODO: fix the List of transition to be a real list not just one ! the get(0) is a major issue for the future
 	public void setTask(List<String> transitionInputComboBox, String transitionOutputComboBox, String taskNameText, 
@@ -22,7 +30,7 @@ public class TaskController extends ActionablePanelController<TaskPanel> {
 		baseComponent.getTaskNameTextField().setText(taskNameText);
 		ActivityFrame activityFrame = baseComponent.getActFrame();
 		for(ActivityContent activity : activities){
-			ActivityPanel activityPanel = new ActivityPanel();
+			ActivityPanel activityPanel = new ActivityPanel(activityFrame);
 			activityPanel.addActivity(activity.getObj(), activity.getMethod());
 			activityFrame.addActivityPanel(activityPanel);
 		}
@@ -37,6 +45,10 @@ public class TaskController extends ActionablePanelController<TaskPanel> {
 		} catch (PetriNetException e) {
 			new ErrorDialog(e);
 		}
+	}
+
+	public void deleteThisTask() {
+		this.parentController.erase(baseComponent);
 	}
 	
 }

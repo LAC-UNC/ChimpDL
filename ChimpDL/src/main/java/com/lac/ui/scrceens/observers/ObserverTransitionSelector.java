@@ -21,11 +21,7 @@ public class ObserverTransitionSelector extends JPanel {
 	
 	/**
 	 * Create the panel.
-	 */
-	public ObserverTransitionSelector() {
-		initComponents();
-	}
-	
+	 */	
 	public ObserverTransitionSelector(ObserverConfigurationFrame observerConfigurationFrame) {
 		this.parentFrame = observerConfigurationFrame;
 		initComponents();
@@ -44,7 +40,7 @@ public class ObserverTransitionSelector extends JPanel {
 		this.setMaximumSize(new Dimension(999,25));
 		this.setAlignmentY(Component.TOP_ALIGNMENT);
 		
-		JButton btnDeleteTransition = new JButton("delete transition");
+		JButton btnDeleteTransition = new JButton("Delete");
 		btnDeleteTransition.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deleteAction();

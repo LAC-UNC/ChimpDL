@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -28,11 +29,14 @@ public class ActivityPanel extends JPanel {
 	JComboBox<String> methodComboBox;	
 	Set<String> instanceNamesSet = new HashSet<String>();
 	Map<String, String> instanceMap = new HashMap<String, String>();
+	ActivityFrame parentFrame;
 	
 	/**
 	 * Create the panel.
 	 */
-	public ActivityPanel() {
+	
+	public ActivityPanel(ActivityFrame parent) {
+		this.parentFrame = parent;
 		initComponents();
 		addResources(Model.getInstance().getDlContent().getResources());
 	}
@@ -59,6 +63,18 @@ public class ActivityPanel extends JPanel {
 		add(methodComboBox);
 		this.setMaximumSize(new Dimension(999,25));
 		this.setAlignmentY(Component.TOP_ALIGNMENT);
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deleteAction();
+			}
+		});
+		add(btnDelete);
+	}
+	
+	public void deleteAction() {
+		parentFrame.eraseActivity(this);
 	}
 	
 	public void addResources(List<ResourcesContent> instanceNames){

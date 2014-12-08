@@ -37,4 +37,8 @@ public class TaskAssociationController extends ActionablePanelController<TaskAss
 			panel.getHome().save();
 		}
 	}
+
+	public void erase(TaskPanel toErase) {
+		baseComponent.eraseObserverPanel(toErase);				
+	}
 }

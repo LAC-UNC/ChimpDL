@@ -1,6 +1,5 @@
 package com.lac.model;
 
-import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,6 +81,7 @@ public class Model {
 		ObserverContent observer = new ObserverContent();
 		observer.setInformedTransitions(informedTransitions);
 		dlContent.addObserver(observer);
+		petriNet.addTransitionNameGroup(informedTransitions);
 		/*ChimpDLFile chimpDl = new ChimpDLFile();
 		try {
 			chimpDl.saveConfiguration(getJarpath(), dlContent);
@@ -120,12 +120,12 @@ public class Model {
 		dlContent.emptyObservers();
 	}
 	
-	private String getJarpath() throws URISyntaxException {
-		String uri;
-		uri = Model.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-		while(uri.contains(".jar")){
-			uri = uri.substring(0,  uri.lastIndexOf("/"));
-		}
-		return uri;
-	}
+//	private String getJarpath() throws URISyntaxException {
+//		String uri;
+//		uri = Model.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+//		while(uri.contains(".jar")){
+//			uri = uri.substring(0,  uri.lastIndexOf("/"));
+//		}
+//		return uri;
+//	}
 }

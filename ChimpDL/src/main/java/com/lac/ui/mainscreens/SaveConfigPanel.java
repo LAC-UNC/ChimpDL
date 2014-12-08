@@ -9,6 +9,7 @@ import com.lac.ui.controllers.SaveConfigController;
 
 public class SaveConfigPanel extends ControlledJPanel<SaveConfigController> {
 	private static final long serialVersionUID = 1L;
+	JButton btnSaveConfigurationAnd;
 
 	public SaveConfigPanel(SaveConfigController homeController) {
 		super(homeController);
@@ -16,14 +17,18 @@ public class SaveConfigPanel extends ControlledJPanel<SaveConfigController> {
 
 	@Override
 	protected void initComponents() {
-		JButton btnSaveConfigurationAnd = new JButton("Save Configuration and start");
+		btnSaveConfigurationAnd = new JButton("Save Configuration and start");
 		btnSaveConfigurationAnd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				homeController.saveAndStartAction();
+				saveAction();
 			}
 		});
 		add(btnSaveConfigurationAnd);
 		
+	}
+	private void saveAction(){
+		btnSaveConfigurationAnd.setEnabled(false);
+		homeController.saveAndStartAction();
 	}
 	
 

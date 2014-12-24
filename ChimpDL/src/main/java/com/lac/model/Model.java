@@ -15,7 +15,6 @@ import com.lac.petrinet.exceptions.PetriNetException;
 public class Model {
 
 	private static Model INSTANCE = null;
-
 	private PetriNet petriNet;
 	private DLContent dlContent ;
 

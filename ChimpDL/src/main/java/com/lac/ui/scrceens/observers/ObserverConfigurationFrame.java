@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import com.lac.ui.scrceens.observers.transition.TransitionObserver;
+
 public class ObserverConfigurationFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
@@ -73,6 +75,7 @@ public class ObserverConfigurationFrame extends JFrame {
 	private ObserverTransitionSelector addNewTransitionSelectionPanel(){
 		ObserverTransitionSelector obsPanel = new ObserverTransitionSelector(this);
 		informedTransitions.add(obsPanel);
+		TransitionObserver.getInstance().addObserver(obsPanel);
 		obsPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		obsPanel.setSize(obsPanel.getWidth(), 16);
 		contentPane.add(obsPanel);
